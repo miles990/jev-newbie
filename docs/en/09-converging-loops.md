@@ -75,6 +75,25 @@ No. The loop always *terminates* if you follow the rules above; it *converges to
 
 So the honest statement is: **anything whose quality is a closed textual judgment can be looped to convergence cheaply; everything else needs its own oracle, and Jev sits beside it, not in its place.**
 
+## Jev → Jev and LLM → LLM: when chaining the same kind is worth it
+
+Chaining is a cost. It is worth paying only when the second call has something the first did not: new state, a dependency on the first answer, or a different role.
+
+**Jev → Jev.** Jev returns numbers and labels, not text, so "Jev → Jev" means a second request whose `state` includes the first request's answers or what code fetched because of them. Warranted when:
+
+| Shape | Why a second request | Official reference |
+| --- | --- | --- |
+| Hierarchical classification | the next level's options depend on the previous pick | hierarchical_classification cookbook |
+| Rank all, then read the top few in full | stage 1 is cheap over titles; stage 2 sees full text of three candidates | skill_suggestion cookbook |
+| Fetch, then judge | the first answer decides what evidence to retrieve; the second judges it | citation_check, rerank cookbooks |
+| Self-consistency | ask the same judgment rephrased or with options reordered; disagreement flags the item | consistency_noul / consistency_choice cookbooks |
+
+Not warranted: asking the same question twice "to double-check" (no new information); chaining to combine judgments (combine in code, it is free); feeding Jev its own probability as text (it is weak with numbers). The default is always one request with many questions in parallel; a second request only when an answer is needed to build the next state.
+
+**LLM → LLM.** Planner → executor, drafter → editor, generator → critic, two agents debating. Warranted when the second call has a different role and a fresh context (it does not inherit the first call's anchoring), a different model (cheap draft, strong review), or when the task genuinely decomposes. Not warranted as a *judge*: an LLM grading another LLM shares its blind spots, can be argued with, costs as much as the work it grades, and rarely converges on its own. That seat is where Jev or code belongs. The pattern that holds up in practice is **LLM for every generating stage, Jev or a deterministic check between stages, code deciding whether to continue**: draft (LLM) → check (Jev) → rewrite (LLM) → check (Jev) → ship or escalate (code).
+
+So: chain Jev to Jev when an answer changes what you ask next; chain LLM to LLM when the roles differ; and never let the same kind grade itself when a typed judge is available.
+
 ## Where this leads
 
 Loop B is how a `kind` question grows from three categories to the ones your data actually has. Loop A is how every LLM output in a product gets a gate. Loop C is how the questions themselves get better. All three run on the same primitives from Lessons 1 to 8; the only new idea is that the stopping condition is a number Jev produced and code checked.
