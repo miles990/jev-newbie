@@ -53,6 +53,28 @@ The LLM proposes candidate *questions*; Jev answers them over a labeled set; cod
 - **Jev's literalness.** A category description written by the LLM becomes a Jev criterion; vague descriptions produce vague probabilities. Cap description length and require distinctness in the prompt.
 - **Metric gaming.** `other-rate` can hit 0% by absorbing everything into one broad category. Pair it with `mean confidence` and with the golden set.
 
+## Can everything be put through this loop?
+
+No. The loop always *terminates* if you follow the rules above; it *converges to something useful* only when four conditions hold:
+
+1. **The goal is judgeable in text.** Jev has to be able to answer "is this better?" from words. Categories, relevance, tone, whether a draft answers a question: yes. Whether code compiles, whether a number is right, whether an image looks correct, whether a fact is true in the world: no. Those need a different oracle (a compiler, a test, a calculator, a sensor, a person), and the loop should be built around that oracle instead, with Jev only judging the textual parts.
+2. **The metric is independent of the proposer.** If the LLM can see exactly what Jev grades, it can satisfy the grader without satisfying you. Hold out data, and report the held-out number.
+3. **The proposal space can actually move the metric.** A loop that lets the LLM rewrite a category description can fix vague categories; it cannot fix a question that asks the wrong thing. Some loops need a person to change the question, not the LLM to change the answer.
+4. **"Converged" is not "correct".** The loop stops when the number stops moving. That number is a proxy you chose, and Goodhart's law applies: the taxonomy loop reached 0% `other` partly by putting a family message under `shopping`. A golden set, a second metric (mean confidence), and a human at the exit are what turn "the metric stopped moving" into "this is right".
+
+| Task | Loops well? | Why |
+| --- | --- | --- |
+| Grow a category list until few items are `other` | yes | judgeable, cheap to re-score, monotone |
+| Improve a reply until Jev's checks pass | yes | checks are textual; two rounds usually enough |
+| Improve a Jev question until it predicts labels | yes, with a held-out set | the official autoresearch cookbook |
+| Tune a prompt until an eval passes | yes, with a real eval | same loop; Jev can be the grader for textual rubrics |
+| Make code pass tests | no, not with Jev as the oracle | tests are the oracle; Jev can only triage failures |
+| Make a number, date or sum correct | no | Jev cannot check arithmetic |
+| Make an image or video correct | no | Jev cannot see it |
+| Decide a legal, medical or safety question | terminate, then a person | the loop can narrow; it must not decide |
+
+So the honest statement is: **anything whose quality is a closed textual judgment can be looped to convergence cheaply; everything else needs its own oracle, and Jev sits beside it, not in its place.**
+
 ## Where this leads
 
 Loop B is how a `kind` question grows from three categories to the ones your data actually has. Loop A is how every LLM output in a product gets a gate. Loop C is how the questions themselves get better. All three run on the same primitives from Lessons 1 to 8; the only new idea is that the stopping condition is a number Jev produced and code checked.
