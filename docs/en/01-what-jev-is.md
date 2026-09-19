@@ -23,6 +23,17 @@ Classification, routing, ranking, relevance, verification, gating, extraction by
 - **Arithmetic, counting, date comparison.** Compute in code, then pass the result or a named bucket.
 - **Read your mind.** It answers the question you wrote, literally. If a wrong answer makes you say "what I meant was...", that sentence belongs in the instructions.
 
+## What Jev changes
+
+1. **Judgment becomes a function call.** "Is this a complaint?" used to be a regex, a keyword table, or an LLM prompt plus a parser. Now it is a call that returns a number, like `parseInt`. Semantic judgment joins the set of things code can just *do*.
+2. **Uncertainty becomes an output, not a feeling.** A calibrated probability turns "the model thinks so" into something you can threshold, price, simulate and escalate on. LLMs do not give you that honestly; rules do not give it at all.
+3. **The economics flip.** At a hundredth of a cent and a third of a second, the rational default is to ask about everything. Filters move in front of expensive steps instead of behind them; evaluation moves inside loops instead of after them.
+4. **The AI moves from the center to the seams.** Instead of one large model doing everything, code owns the control flow and small typed judgments sit at every branch, gate and boundary.
+5. **AI behavior becomes testable.** A question has a golden set, a log line per call, a pinned version and a CI gate, the same as any other unit of code.
+6. **The unknown becomes detectable.** `other` plus low confidence is a signal, so systems can say "this is new" instead of forcing a wrong label.
+
+What it does not change: generation, perception, arithmetic and truth still belong to LLMs, vision models, code and people; and the discipline of writing clear questions and labeling real data is still yours. In this kit, every one of the six points above is backed by a run you can repeat.
+
 ## Jev, an LLM, and an AI agent: what is the difference?
 
 | | LLM (GPT, Claude, Gemini…) | AI agent (Claude Code, Codex, a chatbot) | Jev |
