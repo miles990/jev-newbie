@@ -1,5 +1,9 @@
 # Workspace audit: where Jev would replace fragile code
 
+> Historical design notes, not verified integrations. File paths and line numbers may be stale. Proposed replacements require checking current code, comparing deterministic alternatives, and measuring labeled outcomes. Semantic models should not replace exact authorization, IDs, status codes, or arithmetic. Performance figures below are historical claims, not current guarantees.
+> 歷史設計盤點，不是已完成整合或效能證明。檔案行號可能已變；每項提案需先核對現有程式與確定性替代方案，再以標註資料驗證。
+
+
 [中文摘要在下方](#中文摘要) · Audited 2026-09-19 by four read-only agents over ~60 of the author's own projects under `~/Workspace`. Third-party clones and empty directories were skipped. Every item names a real file and line, what the code does now, the Jev question that would replace it, and why it matters. **None of the projects used Jev before this audit.** This file exists so anyone can see what "finding use cases in your own code" looks like at scale; the method is in [docs/en/02-find-use-cases.md](en/02-find-use-cases.md).
 
 ## Cross-project top 10 by value ÷ effort

@@ -1,0 +1,2 @@
+{"source_id": "example-ranking", "url": "https://github.com/hev/reranker", "content": "Teaching summary: a query and multiple documents share one state. One yes/no relevance question per document is answered in one request. Python sorts the results. Not a new benchmark."}
+{"source_id": "example-ui", "url": "https://github.com/Sac-Y/Jev-cu", "content": "Teaching summary: read accessibility text, ask Jev to choose an element and action, apply local policy and execute through computer-use tools, then observe again. Not an end-to-end performance claim."}

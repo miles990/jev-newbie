@@ -2,17 +2,25 @@
   "questions": {
     "relevance": {
       "type": "score",
-      "instructions": "How directly does `item` address the person's `goal`?",
-      "criteria": ["unrelated to the goal", "touches the goal in passing", "addresses the goal directly", "is specifically about achieving this goal"]
+      "instructions": "How directly does `item` address the learning goal in `goal`?",
+      "criteria": [
+        "unrelated",
+        "loosely related",
+        "directly relevant",
+        "specifically teaches this goal"
+      ]
     },
-    "actionable": { "type": "noul", "instructions": "Does `item` give something concrete the person could actually do this week, rather than a vague idea or a product to buy?" },
-    "credible": { "type": "noul", "instructions": "Is the advice or claim in `item` supported by evidence or expertise, rather than anecdote, marketing or unsupported assertion?" },
-    "safe": { "type": "noul", "instructions": "Is following `item` free of meaningful health, financial or safety risk for a typical adult?" },
-    "cost": {
-      "type": "score",
-      "instructions": "How much money or effort does `item` require to try?",
-      "criteria": ["free and easy to try", "some effort or a small cost", "significant money or a hard habit change"]
+    "actionable": {
+      "type": "noul",
+      "instructions": "Does `item` describe a concrete exercise the learner can try with a phone this week?"
     },
-    "sales_pitch": { "type": "noul", "instructions": "Is `item` primarily trying to sell something?" }
+    "beginner": {
+      "type": "noul",
+      "instructions": "Based only on its description, is `item` suitable for a beginner without specialist equipment or prior knowledge?"
+    },
+    "sales_pitch": {
+      "type": "noul",
+      "instructions": "Is `item` mainly trying to sell a product rather than teach a skill?"
+    }
   }
 }

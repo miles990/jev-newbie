@@ -2,7 +2,7 @@
 Speculative fan-out: when you do not know what to ask, ask a whole set at once and let code decide.
 Run: .venv/bin/python examples/python/fanout_profile.py
 
-一次呼叫的問題數幾乎不影響延遲，因為所有問題平行評估。對每則訊息問同一組屬性，
+獨立問題可放在同一次呼叫中，減少網路往返；實際延遲與用量仍需量測。對每則訊息問同一組屬性，
 得到一個機率向量，之後排序、分群、設門檻都在程式碼裡做，不必再呼叫模型。
 """
 import os

@@ -1,34 +1,18 @@
-# Observability and verification
+# What logs and reports show
 
-Because Jev never generates text, every call is fully inspectable: a state, a set of questions, a set of probabilities, a decision your code made. Make that visible and the model stops being a black box.
+Successful CLI judgments and `examples/js/observe.mjs` share a report schema, normally saved to `runs/jev-log.jsonl`: time, model, input preview/hash, questions, answers, decision, latency, and tokens.
 
-## The record
-
-One JSONL line per call. This is what `bin/jev.mjs` and `examples/js/observe.mjs` write:
-
-```json
-{"at":"2026-09-19T12:00:00Z","cmd":"classify","label":"support","id":"3","model":"jev-1.13.0",
- "stateHash":"a1b2c3d4e5f6","statePreview":"{\"item\":\"系統又掛了！！\"}",
- "questions":{"q":{"type":"choice","instructions":"What does the writer mainly want?","criteria":{"bug":null,"billing":null}}},
- "answers":{"q":{"type":"choice","value":"bug","confidence":0.93,"probabilities":{"bug":0.95,"billing":0.05}}},
- "decision":"bug","latencyMs":312,"inputTokens":221}
+```sh
+node bin/jev.mjs view
+node bin/jev.mjs view runs/jev-log.jsonl --no-open
 ```
 
-Keep the state hash rather than the full state when the text is sensitive; keep the preview short.
+The first tries to open the report; the second only writes HTML. JEV_LOG changes the log location, with the report generated beside it.
 
-## The viewer
+Only the first 160 input characters and a hash are stored, so the log cannot fully replay original requests. Previews can contain sensitive information. Failed CLI calls currently report errors rather than a complete failure event log.
 
-`jev view` renders the log into `runs/report.html`: summary tiles (records, median latency, tokens, cost, model), a probability/confidence histogram, filters by label, a search box, and one row per call with bars for every answer and the code's decision as a pill. The 0.35 to 0.65 band is shaded on every bar.
+The histogram combines yes/no probabilities and Choice/Score confidence. It is exploratory, not a calibration chart or accuracy proof. Concentration can reflect confident errors. Accuracy requires labeled outcomes.
 
-How to read the histogram: answers piled at 0 and 1 mean the question is clear; a hump in the middle means the question or the data is ambiguous. Fix the question before touching thresholds.
+Cost is an estimate using a historical rate, not a bill. Dedicated LLM pipeline logs have a different schema and are not inputs to view.
 
-## Verification
-
-- **Golden set.** `jev check questions.json cases.jsonl` compares answers with labels you wrote. Read every miss; label ambiguity is a finding, not noise.
-- **Regression on upgrade.** Pin the model; when a new version ships, re-run the golden set and diff the report.
-- **Shadow mode.** For a gate, log the verdict for a week without acting on it, then look at what it would have blocked.
-- **Cross-agent consistency.** When Claude Code and Codex share one `evaluate` MCP tool and one questions file, the same input gets the same judgment in both.
-
-## A worked example
-
-`showcase/observe-agent-avatar.html` is a dashboard built from 492 real calls in a production repo: a prompt gate over 273 generation prompts, tool-name routing for 55 tools, Chinese versus English routing of 30 user sentences, and clip tagging. Total cost US$0.016. Open it to see what "observable Jev" looks like at scale.
+The [showcase](../../showcase/README.md) preserves a historical report, not validation of the current version.

@@ -1,19 +1,28 @@
-// 延遲基準：循序 vs 平行、1 題 vs 12 題、快取命中。Latency benchmark: sequential vs parallel, 1 vs 12 questions, cache hit.
-// Run: node examples/js/latency.mjs   (about 60 uncached calls, a few cents)
-import { TypeSafeClient, noul, choice } from "@typesafe-ai/sdk";
-const jev = new TypeSafeClient({ defaultModel: process.env.JEV_MODEL });
-const msg = (i) => ({ message: `Reminder ${i}: your appointment is tomorrow at 10:30, reply Y to confirm.`, nonce: Date.now() + i });
-const one = { needsReply: noul("Does the sender expect me to reply?") };
-const twelve = Object.fromEntries(["needsReply","isScam","isAd","hasDeadline","asksMoney","asksClick","fromKnown","polite","urgentToday","mentionsPlace","isQuestion","isInvite"].map((k) => [k, noul(`Judge property ${k} of the message.`)]));
-twelve.kind = choice("What kind of message is this?", { bill: null, scam: null, invite: null, appointment: null, ad: null, personal: null, other: null });
-const stats = (ms) => { const s = [...ms].sort((a, b) => a - b); return `min ${s[0]} · p50 ${s[Math.floor(s.length / 2)]} · p90 ${s[Math.floor(s.length * 0.9)]} · max ${s.at(-1)} ms`; };
-async function timed(state, q) { const t = performance.now(); await jev.systemOne({ state, questions: q }); return Math.round(performance.now() - t); }
-
-let ms = []; for (let i = 0; i < 15; i++) ms.push(await timed(msg(i), one));
-console.log(`15 sequential calls, 1 question:      ${stats(ms)}`);
-ms = []; for (let i = 0; i < 15; i++) ms.push(await timed(msg(100 + i), twelve));
-console.log(`15 sequential calls, 13 questions:    ${stats(ms)}`);
-const t0 = performance.now(); ms = await Promise.all(Array.from({ length: 20 }, (_, i) => timed(msg(200 + i), twelve)));
-console.log(`20 parallel calls, 13 questions:      ${stats(ms)}   wall clock for all 20: ${Math.round(performance.now() - t0)} ms`);
-const fixed = { message: "same input twice", nonce: 1 }; const a = await timed(fixed, one), b = await timed(fixed, one);
-console.log(`same request twice (no client cache): ${a} ms then ${b} ms  → cache by request hash in your code to make the second one 0 ms`);
+// Compare question bundling and request concurrency. 3 warmup + 30 comparison + 4 concurrent calls (37 total).
+// Uses the same text; no claims about server caching or universal speedups.
+import { TypeSafeClient, noul } from '@typesafe-ai/sdk';
+import { mkdirSync, writeFileSync } from 'node:fs';
+const client = new TypeSafeClient({ defaultModel: process.env.JEV_MODEL });
+const state = { message: 'Dinner on Saturday? Let me know by tomorrow if you can come.' };
+const questions = {
+  reply: noul('Does the message request a reply?'),
+  invite: noul('Does the message invite the recipient to an activity?'),
+  deadline: noul('Does the message specify a deadline for a response?'),
+  ad: noul('Is the message primarily an advertisement?'),
+};
+const rows = []; let tokens=0; const models=new Set();
+async function call(q) { const start=performance.now(); const r=await client.systemOne({state,questions:q}); tokens+=r.usage?.input_tokens||0; models.add(r.model); return Math.round(performance.now()-start); }
+await call({reply:questions.reply}); await call(questions); await call({reply:questions.reply});
+for(let round=0;round<5;round++) {
+ const oneMs=await call({reply:questions.reply});
+ const bundledMs=await call(questions);
+ const sequentialStart=performance.now();
+ for(const [k,q] of Object.entries(questions)) await call({[k]:q});
+ rows.push({round:round+1,oneMs,bundledMs,fourSequentialMs:Math.round(performance.now()-sequentialStart)});
+}
+const parallelStart=performance.now(); const parallel=await Promise.all(Array.from({length:4},()=>call(questions)));
+const parallelWallMs=Math.round(performance.now()-parallelStart);
+const median=key=>rows.map(r=>r[key]).sort((a,b)=>a-b)[2];
+const report={at:new Date().toISOString(),models:[...models],rounds:rows,medians:{oneMs:median('oneMs'),bundledMs:median('bundledMs'),fourSequentialMs:median('fourSequentialMs')},parallel:{requests:4,questionsPerRequest:4,latenciesMs:parallel,wallMs:parallelWallMs},inputTokens:tokens};
+mkdirSync('runs',{recursive:true});writeFileSync('runs/latency.json',JSON.stringify(report,null,2));console.log(JSON.stringify(report,null,2));
+console.log('Small local sample, no accuracy comparison or latency guarantee. 37 total API calls including warmup.');

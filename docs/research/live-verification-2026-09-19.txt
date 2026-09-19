@@ -1,0 +1,58 @@
+model: jev-1.13.0
+  ✓ curl-first-call (same decisions, max numeric drift 0.080)
+  ✓ python-quickstart: executed (no recorded comparison)
+  ✓ python-unknown-filter (same decisions, max numeric drift 0.020)
+  ✓ python-fanout (same decisions, max numeric drift 0.100)
+  ✓ js-quickstart: executed (no recorded comparison)
+  ✓ cli-ask (same decisions, max numeric drift 0.010)
+  ✓ cli-pick (same decisions, max numeric drift 0.000)
+  ✓ cli-rate (same decisions, max numeric drift 0.000)
+  ✓ cli-filter (same decisions, max numeric drift 0.030)
+  ✓ cli-classify (same decisions, max numeric drift 0.050)
+  ✓ cli-run (same decisions, max numeric drift 0.040)
+  ✓ inbox-classify (same decisions, max numeric drift 0.030)
+  ✗ inbox-filter: output changed
+--- recorded
++++ now
+@@ -1,10 +1,10 @@
+-✓  96%  週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～
++✓  95%  週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～
++✓  94%  Hi, this is the clinic. Your appointment is tomorrow at 10:30. Reply Y to confirm or call to reschedule.
+ ✓  94%  媽：你上次說的那個電鍋是哪個牌子？我想買一個給阿姨。
+-✓  93%  Hi, this is the clinic. Your appointment is tomorrow at 10:30. Reply Y to confirm or call to reschedule.
+-   45%  您的包裹因地址不完整無法投遞，請點擊連結補填資料：http://parcel-redelivery.co/x9
+-   27%  這個月房租記得在 5 號前匯，謝謝。
+-   21%  你的信用卡帳單這期 12,480 元，繳款截止 25 日，逾期會有循環利息。
+-   13%  【限時】全館服飾 3 折起，只到今晚 12 點！
+-   13%  Your account was used to sign in on a new device. If this wasn't you, secure your account now: account-verify-center.net
++   46%  您的包裹因地址不完整無法投遞，請點擊連結補填資料：http://parcel-redelivery.co/x9
++   26%  這個月房租記得在 5 號前匯，謝謝。
++   22%  你的信用卡帳單這期 12,480 元，繳款截止 25 日，逾期會有循環利息。
++   14%  Your account was used to sign in on a new device. If this wasn't you, secure your account now: account-verify-center.net
++   12%  【限時】全館服飾 3 折起，只到今晚 12 點！
+ 
+-3/8 kept at p ≥ 0.5. Log: runs/verify-log.jsonl
++3/8 kept at p ≥ 0.5. Log: runs/verify-20260919T142225-96899.jsonl
+  ✓ inbox-run (same decisions, max numeric drift 0.040)
+  ✓ tut3-compound (same decisions, max numeric drift 0.010)
+  ✓ tut3-split-action (same decisions, max numeric drift 0.000)
+  ✓ tut3-split-money (same decisions, max numeric drift 0.000)
+  ✓ tut4-text-only (same decisions, max numeric drift 0.030)
+  ✓ tut4-unknown-sender (same decisions, max numeric drift 0.000)
+  ✓ tut4-landlord (same decisions, max numeric drift 0.010)
+  ✓ usefulness: executed (no recorded comparison)
+
+golden set (hard check):
+kind             8/8 (100%)
+needs_reply      5/5 (100%)
+asks_to_click_or_login 5/5 (100%)
+urgency          1/1 (100%)
+
+19/19 expectations met across 8 cases. Log: runs/verify-20260919T142225-96899.jsonl
+needs_engineer   2/2 (100%)
+intent           7/7 (100%)
+urgency          3/3 (100%)
+repeat_contact   2/2 (100%)
+
+14/14 expectations met across 8 cases. Log: runs/verify-20260919T142225-96899.jsonl
+73 records → /Users/user/Workspace/jev-newbie/runs/report.html

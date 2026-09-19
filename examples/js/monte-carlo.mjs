@@ -48,7 +48,7 @@ function simulate(deleteAbove, replyAbove) {
   for (let i = 0; i < N; i++) {
     let wd = 0, mr = 0, owed = 0;
     for (const it of items) {
-      const isScam = rand() < it.pScam, wantsReply = rand() < it.pReply;   // sample the "true" world from Jev's calibrated p
+      const isScam = rand() < it.pScam, wantsReply = rand() < it.pReply;   // Assumes calibration AND independence; these are simulated outcomes, not observations.
       const deleted = it.pScam > deleteAbove, replied = !deleted && it.pReply > replyAbove;
       if (deleted && !isScam) wd++;
       if (wantsReply && !isScam && !replied) mr++;
@@ -79,3 +79,5 @@ const graded = cases.map((c) => { const it = items.find((x) => x.m === c.state.i
 const boots = [];
 for (let b = 0; b < 5000; b++) { let hit = 0; for (let i = 0; i < graded.length; i++) hit += graded[Math.floor(rand() * graded.length)]; boots.push(hit / graded.length); }
 console.log(`\nGolden-set accuracy for kind: ${graded.reduce((s, x) => s + x, 0)}/${graded.length} observed; bootstrap 90% interval ${pct(quantile(boots, 0.05))}–${pct(quantile(boots, 0.95))} (n=${graded.length}: too small to promise more than that)`);
+
+console.log("These are model-based simulations, not measured error rates. Independent Bernoulli draws assume scam/reply independence. A 100%-100% bootstrap interval on an all-correct tiny sample does not prove perfect accuracy.");

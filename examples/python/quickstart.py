@@ -40,12 +40,12 @@ print(f"kind        = {kind.choice}  (confidence {kind.confidence:.2f})  {dict(s
 print(f"needs_reply = {reply.noul:.2f}")
 print(f"urgency     = {urg.score:.2f} of {len(urg.legend) - 1}")
 
-# 決策寫在程式碼裡，門檻看得見、改得動，不必重新呼叫模型。
-# The policy lives in code: thresholds are visible and editable without another model call.
+# 決策寫在程式碼裡，門檻看得見、改得動，儲存答案後可離線調整；重跑本腳本仍會呼叫 API。
+# The policy lives in code: thresholds are visible and editable after saving and reusing answers; running this script again calls the API.
 if kind.confidence < 0.5:
     action = "show it to me: the model is not sure what this is"
 elif kind.choice == "scam":
-    action = "move to junk and block the sender"
+    action = "flag as suspicious for me to review"
 elif kind.choice == "bill" and urg.score > 1.5:
     action = "put 'pay today' at the top of my list"
 elif reply.noul > 0.7:

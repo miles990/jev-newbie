@@ -1,36 +1,47 @@
-// 評估一樣東西「有沒有用」：把「有用」拆成幾個可以各自判斷的維度，Jev 逐項給機率，程式碼用你選的權重合成分數。
-// Judging whether something is useful: split "useful" into dimensions Jev can judge one by one, then combine
-// them with weights YOU choose in code. Change the weights and re-rank without another API call.
-// Run: node examples/js/usefulness.mjs [candidates.jsonl] [questions.json]
-import { readFileSync } from "node:fs";
-import { TypeSafeClient } from "@typesafe-ai/sdk";
-
-const [cand = "examples/usefulness/candidates.jsonl", qfile = "examples/usefulness/usefulness.questions.json"] = process.argv.slice(2);
-const questions = JSON.parse(readFileSync(qfile, "utf8")).questions;
-const items = readFileSync(cand, "utf8").split("\n").filter(Boolean).map((l) => JSON.parse(l));
-const client = new TypeSafeClient({ defaultModel: process.env.JEV_MODEL });
-
-const results = await Promise.all(items.map(async (state) => {
-  const r = await client.systemOne({ state, questions });
-  const a = r.answers;
-  // Normalize every dimension to 0..1, then weight. Weights are the policy; edit them freely.
-  const dims = {
-    relevance: a.relevance.score / 3,
-    actionable: a.actionable.noul,
-    credible: a.credible.noul,
-    safe: a.safe.noul,
-    cheap: 1 - a.cost.score / 2,
-    notPitch: 1 - a.sales_pitch.noul,
-  };
-  const W = { relevance: 0.35, actionable: 0.2, credible: 0.2, safe: 0.1, cheap: 0.1, notPitch: 0.05 };
-  const useful = Object.entries(W).reduce((s, [k, w]) => s + w * dims[k], 0);
-  // Hard rules never go through the weighted sum: an unsafe item is out, whatever its score.
-  const verdict = a.safe.noul < 0.5 ? "REJECT: unsafe" : a.relevance.score < 1 ? "ignore: unrelated" : useful >= 0.7 ? "worth trying" : useful >= 0.5 ? "maybe" : "skip";
-  return { item: state.item, useful, verdict, dims };
-}));
-
-results.sort((x, y) => y.useful - x.useful);
-for (const r of results) {
-  console.log(`${r.useful.toFixed(2)}  ${r.verdict.padEnd(18)} ${r.item.slice(0, 70)}`);
-  console.log("      " + Object.entries(r.dims).map(([k, v]) => `${k}=${v.toFixed(2)}`).join("  "));
+// Evaluate learning resources once; explicitly reuse saved answers when changing weights.
+// npm ci; node examples/js/usefulness.mjs
+// node examples/js/usefulness.mjs --reuse
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import { TypeSafeClient } from '@typesafe-ai/sdk';
+const args = process.argv.slice(2);
+const reuse = args.includes('--reuse');
+const positional = args.filter(a => a !== '--reuse');
+const [cand = 'examples/usefulness/candidates.jsonl', qfile = 'examples/usefulness/usefulness.questions.json'] = positional;
+if (positional.length > 2 || positional.some(a => a.startsWith('--'))) throw new Error('usage: node examples/js/usefulness.mjs [candidates.jsonl] [questions.json] [--reuse]');
+const questions = JSON.parse(readFileSync(qfile, 'utf8')).questions;
+const items = readFileSync(cand, 'utf8').split('\n').filter(l => l.trim()).map(l => JSON.parse(l));
+const fingerprint = createHash('sha256').update(JSON.stringify({ items, questions })).digest('hex');
+const path = 'runs/usefulness-results.json';
+let saved;
+if (reuse) {
+  saved = JSON.parse(readFileSync(path, 'utf8'));
+  if (saved.fingerprint !== fingerprint) throw new Error('Inputs or questions changed. Run without --reuse to evaluate again.');
+  if (process.env.JEV_MODEL && saved.requestedModel !== process.env.JEV_MODEL) throw new Error('JEV_MODEL changed. Run without --reuse.');
+  console.error(`Reusing answers from ${saved.at}; no API calls. Models: ${[...new Set(saved.results.map(r => r.model))].join(', ')}`);
+} else {
+  const client = new TypeSafeClient({ defaultModel: process.env.JEV_MODEL });
+  const results = [];
+  for (const state of items) {
+    const r = await client.systemOne({ state, questions });
+    results.push({ item: state.item, model: r.model, answers: r.answers });
+  }
+  saved = { fingerprint, requestedModel: process.env.JEV_MODEL || null, at: new Date().toISOString(), questions, results };
+  mkdirSync('runs', { recursive: true });
+  writeFileSync(path, JSON.stringify(saved, null, 2));
+  console.error(`Saved answers: ${path}. Use --reuse to change weights without new calls.`);
 }
+// Relative weights; the sum is normalized so editing one weight keeps scores in 0..1.
+const W = { relevance: 0.4, actionable: 0.3, beginner: 0.2, notPitch: 0.1 };
+const weightSum = Object.values(W).reduce((a, b) => a + b, 0);
+if (Object.values(W).some(w => !Number.isFinite(w) || w < 0) || weightSum <= 0) throw new Error('Weights must be finite, nonnegative, and have a positive total');
+const results = saved.results.map(({ item, answers: a }) => {
+  const dims = { relevance: a.relevance.score / 3, actionable: a.actionable.noul, beginner: a.beginner.noul, notPitch: 1 - a.sales_pitch.noul };
+  const useful = Object.entries(W).reduce((s, [k, w]) => s + w * dims[k], 0) / weightSum;
+  return { item, useful, dims };
+}).sort((a, b) => b.useful - a.useful);
+for (const r of results) {
+  console.log(`${r.useful.toFixed(2)}  ${r.item}`);
+  console.log('      ' + Object.entries(r.dims).map(([k, v]) => `${k}=${v.toFixed(2)}`).join('  '));
+}
+console.log('Ranking score, not a probability of usefulness or a fact check.');

@@ -21,7 +21,7 @@ const log = (rec) => appendFileSync(LOG, JSON.stringify({ at: new Date().toISOSt
 async function llm(prompt) {
   if (process.env.ANTHROPIC_API_KEY) {
     const { default: Anthropic } = await import("@anthropic-ai/sdk");
-    const r = await new Anthropic().messages.create({ model: "claude-opus-5", max_tokens: 512, messages: [{ role: "user", content: prompt }] });
+    const r = await new Anthropic().messages.create({ model: process.env.ANTHROPIC_MODEL || (() => { throw new Error("Set ANTHROPIC_MODEL to a model available to your account"); })(), max_tokens: 512, messages: [{ role: "user", content: prompt }] });
     if (r.stop_reason === "refusal") return "";
     return r.content.filter((b) => b.type === "text").map((b) => b.text).join("").trim();
   }
@@ -59,13 +59,15 @@ for (let round = 1; round <= MAX_ROUNDS; round++) {
   console.log(`\nround ${round}  categories=${Object.keys(taxonomy).length}  other-rate=${(metric.otherRate * 100).toFixed(0)}%  mean-conf=${metric.meanConf.toFixed(2)}`);
   for (const r of rows) console.log(`  ${(r.unknown ? "?" : " ")} ${r.kind.padEnd(12)} ${r.conf.toFixed(2)}  ${r.m.slice(0, 44)}`);
 
-  // Keep the best round so a bad proposal can never make the final answer worse.
+  // Keep the best round so a bad proposal cannot increase the retained other-rate; accuracy still needs independent labels.
   if (!best || metric.otherRate < best.metric.otherRate) best = { round, taxonomy: { ...taxonomy }, metric };
 
   // Convergence checks, all in code.
-  if (metric.otherRate <= TARGET_OTHER_RATE) { console.log(`\n✓ converged: other-rate ${(metric.otherRate * 100).toFixed(0)}% ≤ ${TARGET_OTHER_RATE * 100}%`); break; }
+  if (metric.otherRate <= TARGET_OTHER_RATE) { console.log(`\n✓ target reached: other-rate ${(metric.otherRate * 100).toFixed(0)}% ≤ ${TARGET_OTHER_RATE * 100}%`); break; }
   if (Object.keys(taxonomy).length >= MAX_CATEGORIES) { console.log("\n■ stopped: category cap reached; the rest goes to a person"); break; }
   if (round > 1 && metric.otherRate >= best.metric.otherRate && best.round !== round) { console.log("\n■ stopped: no progress this round; keeping the best taxonomy"); break; }
+
+  if (round === MAX_ROUNDS) { console.log("\n■ stopped: round cap reached"); break; }
 
   // The LLM does the one thing Jev cannot: name a new category for the unknown pile.
   const prompt = `Here are messages a classifier could not place. Existing categories: ${Object.keys(taxonomy).filter((k) => k !== "other").join(", ")}.

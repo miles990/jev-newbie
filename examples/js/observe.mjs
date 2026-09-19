@@ -3,36 +3,38 @@
 // 用法：import { ask } from "./observe.mjs" 取代直接呼叫 client.systemOne。
 import { createHash } from "node:crypto";
 import { appendFileSync, mkdirSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { pathToFileURL } from "node:url";
 import { TypeSafeClient, choice, noul } from "@typesafe-ai/sdk";
 
 const client = new TypeSafeClient({ defaultModel: process.env.JEV_MODEL });
-const LOG = "runs/jev-log.jsonl";
-mkdirSync("runs", { recursive: true });
+const LOG = process.env.JEV_LOG || "runs/jev-log.jsonl";
 
 /** Ask Jev and append one auditable record: what went in, what came out, what code decided. */
 export async function ask(state, questions, decide, { label = "" } = {}) {
   const t0 = performance.now();
   const r = await client.systemOne({ state, questions });
   const answers = Object.fromEntries(Object.entries(r.answers).map(([k, a]) => [k,
-    a.type === "noul" ? { noul: a.noul } : { [a.type]: a[a.type], confidence: a.confidence, probabilities: a.probabilities }]));
+    a.type === "noul" ? { type: a.type, p: a.noul } : { type: a.type, value: a[a.type], confidence: a.confidence, probabilities: a.probabilities }]));
   const decision = decide(r.answers);
   const record = {
-    at: new Date().toISOString(), label, model: r.model,
+    at: new Date().toISOString(), cmd: "observe", label, statePreview: JSON.stringify(state).slice(0, 160), model: r.model,
     stateHash: createHash("sha256").update(JSON.stringify(state)).digest("hex").slice(0, 12),
-    questions: Object.fromEntries(Object.entries(questions).map(([k, q]) => [k, q.instructions])),
+    questions: Object.fromEntries(Object.entries(questions).map(([k, q]) => [k, { type: q.type, instructions: q.instructions, criteria: q.criteria ?? null }])),
     answers, decision, latencyMs: Math.round(performance.now() - t0), inputTokens: r.usage.input_tokens,
   };
+  mkdirSync(dirname(LOG), { recursive: true });
   appendFileSync(LOG, JSON.stringify(record) + "\n");
   return { ...r, decision };
 }
 
 // Demo: three messages through the same questions and the same policy.
-if (import.meta.url === `file://${process.argv[1]}`) {
+if (process.argv[1] && import.meta.url === pathToFileURL(resolve(process.argv[1])).href) {
   const Q = {
     kind: choice("What kind of inbox message is this?", { invite: "invites me somewhere", ad: "marketing", personal: "someone I know asks me something", other: "none of these" }),
     needsReply: noul("Does the message expect a reply?"),
   };
-  const policy = (a) => (a.kind.confidence < 0.5 ? "clarify" : a.kind.choice);
+  const policy = (a) => a.kind.confidence < 0.5 ? "clarify" : a.kind.confidence < 0.8 ? "review" : a.kind.choice;
   for (const m of ["週六晚上小美生日，來的話回我一聲～", "【限時】全館服飾 3 折起！", "媽：你上次說的電鍋是哪個牌子？"]) {
     const r = await ask({ message: m }, Q, policy, { label: "demo" });
     console.log(`${m.padEnd(12)} → ${r.decision.padEnd(9)} conf=${r.answers.kind.confidence.toFixed(2)} needsReply=${r.answers.needsReply.noul.toFixed(2)}`);

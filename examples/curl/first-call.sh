@@ -3,7 +3,7 @@
 # The smallest possible call: one inbox message, one question of each type.
 set -eu
 : "${TYPESAFE_API_KEY:?請先 export TYPESAFE_API_KEY=... (get one at https://console.typesafe.ai)}"
-curl -sS https://api.typesafe.ai/v1/systemone \
+curl --fail --max-time 30 -sS https://api.typesafe.ai/v1/systemone \
   -H "Authorization: Bearer $TYPESAFE_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -16,4 +16,4 @@ curl -sS https://api.typesafe.ai/v1/systemone \
       "urgency": {"type": "score",  "instructions": "How soon does this need my attention?",
                   "criteria": ["can wait a week", "within a few days", "today"]}
     }
-  }' | python3 -m json.tool
+  }'

@@ -12,22 +12,29 @@ BAR = re.compile(r"[█·]+")
 def shape(text):
     # Bars grow with probability and some outputs are sorted by probability, so neither is a "decision".
     # Normalize bars and numbers, group lines by their normalized shape, and compare each group's sorted
-    # numbers with tolerance. Percentages are read as fractions so 92% vs 93% is a 0.01 drift.
+    # numeric tuples with tolerance. Percentages are read as fractions so 92% vs 93% is a 0.01 drift.
     groups = {}
-    for l in text.splitlines():
+    blocks = []
+    for line in text.splitlines():
+        if line[:1].isspace() and blocks:
+            blocks[-1] += "\n" + line
+        else:
+            blocks.append(line)
+    for l in blocks:
+        l = re.sub(r"Log: \S+", "Log: LOG", l)
         l = re.sub(r"\d+ ms", "N ms", BAR.sub("BAR", l))
         key = re.sub(r"\s+", " ", NUM.sub("#", l)).strip()  # padding changes with digit count (100% vs 99%)
-        groups.setdefault(key, []).extend(float(m.group(0).rstrip("%")) / (100 if m.group(1) else 1) for m in NUM.finditer(l))
+        groups.setdefault(key, []).append(tuple(float(m.group(0).rstrip("%")) / (100 if m.group(1) else 1) for m in NUM.finditer(l)))
     return {k: sorted(v) for k, v in groups.items()}
 if len(sys.argv) < 3:
     print(__doc__); sys.exit(2)
 a, b = (open(p, encoding="utf-8").read() for p in sys.argv[1:3])
 ga, gb = shape(a), shape(b)
-if ga.keys() != gb.keys() or any(len(ga[k]) != len(gb[k]) for k in ga):
+if ga.keys() != gb.keys() or any(len(ga[k]) != len(gb[k]) or any(len(x) != len(y) for x, y in zip(ga[k], gb[k])) for k in ga):
     import difflib
     print("\n".join(list(difflib.unified_diff(a.splitlines(), b.splitlines(), "recorded", "now", lineterm=""))[:40]))
     sys.exit(1)
-drift = max((abs(x - y) for k in ga for x, y in zip(ga[k], gb[k])), default=0.0)
+drift = max((abs(x - y) for k in ga for x, y in zip(ga[k], gb[k]) for x, y in zip(x, y)), default=0.0)
 if drift > TOL:
     print(f"numbers drifted by {drift:.3f} (> {TOL}); same labels though"); sys.exit(1)
 print(f"same decisions, max numeric drift {drift:.3f}")

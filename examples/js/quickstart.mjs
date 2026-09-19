@@ -30,7 +30,7 @@ console.log("urgency    ", urgency.score.toFixed(2));
 
 const action =
   kind.confidence < 0.5 ? "show it to me" :
-  kind.choice === "scam" ? "move to junk and block the sender" :
+  kind.choice === "scam" ? "flag as suspicious for me to review" :
   kind.choice === "bill" && urgency.score > 1.5 ? "pay today" :
   needsReply.noul > 0.7 ? "remind me to reply tonight" :
   "file under read-later";

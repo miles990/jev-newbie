@@ -1,0 +1,55 @@
+{
+  "at": "2026-09-19T06:15:26.398Z",
+  "models": [
+    "jev-1.13.0"
+  ],
+  "rounds": [
+    {
+      "round": 1,
+      "oneMs": 252,
+      "bundledMs": 248,
+      "fourSequentialMs": 1006
+    },
+    {
+      "round": 2,
+      "oneMs": 265,
+      "bundledMs": 315,
+      "fourSequentialMs": 999
+    },
+    {
+      "round": 3,
+      "oneMs": 237,
+      "bundledMs": 265,
+      "fourSequentialMs": 1098
+    },
+    {
+      "round": 4,
+      "oneMs": 257,
+      "bundledMs": 258,
+      "fourSequentialMs": 1037
+    },
+    {
+      "round": 5,
+      "oneMs": 286,
+      "bundledMs": 237,
+      "fourSequentialMs": 1018
+    }
+  ],
+  "medians": {
+    "oneMs": 257,
+    "bundledMs": 258,
+    "fourSequentialMs": 1018
+  },
+  "parallel": {
+    "requests": 4,
+    "questionsPerRequest": 4,
+    "latenciesMs": [
+      274,
+      565,
+      611,
+      636
+    ],
+    "wallMs": 638
+  },
+  "inputTokens": 11388
+}

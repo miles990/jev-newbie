@@ -35,7 +35,7 @@ const rows = await Promise.all(items.map(async (it) => {
 
 // 1. the feature matrix as CSV
 const cols = [...Object.keys(FEATURES), "urgency"];
-const csv = ["text,label," + cols.join(","), ...rows.map((r) => [JSON.stringify(r.text), r.label ?? "", ...cols.map((c) => r.features[c].toFixed(3))].join(","))].join("\n");
+const csv = ["text,label," + cols.join(","), ...rows.map((r) => ['"' + r.text.replace(/"/g, '""') + '"', r.label ?? "", ...cols.map((c) => r.features[c].toFixed(3))].join(","))].join("\n");
 writeFileSync("runs/features.csv", csv);
 console.log(`feature matrix: ${rows.length} rows × ${cols.length} features → runs/features.csv\n`);
 console.log("text".padEnd(30) + cols.map((c) => c.slice(0, 9).padStart(10)).join(""));

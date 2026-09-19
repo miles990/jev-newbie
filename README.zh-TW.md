@@ -96,6 +96,10 @@ node bin/jev.mjs view
 
 **接下來，找三則你熟悉的訊息，先自己判斷，再看看 Jev 是否和你一致。** 如果不同，檢查問題是否清楚、選項是否足夠，再嘗試補上必要的背景。分數高也不保證答案正確。
 
+## 想請 AI 助手幫你整合？
+
+自己學會指令後，若想把 Jev 接進訊息整理工具，可以把 [AI 整合指南](docs/zh-TW/16-agent-integration.md)交給 Codex 或 Claude Code。它說明如何設計問題、比較測試結果，再依需求加入程式。這是普通文件，不需要安裝額外的 `jev-workflow` skill。
+
 ## 想繼續學？
 
 - [循序教程](tutorial/README.md)：練習寫問題、補充背景、一次處理多則訊息，以及檢查準確度。
@@ -104,3 +108,5 @@ node bin/jev.mjs view
 - [開發工具整合](docs/zh-TW/04-tools.md)：想把 Jev 接進程式或 coding agent 時再看。
 
 授權：[MIT](LICENSE)。
+
+進階選讀：[平行判斷的速度實測](docs/zh-TW/14-speed-and-computer-use.md) · [社群案例與工具](docs/zh-TW/17-use-case-research.md)。

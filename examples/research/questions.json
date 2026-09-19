@@ -1,0 +1,61 @@
+{
+  "questions": {
+    "use_case": {
+      "type": "choice",
+      "instructions": "What is the main concrete Jev use described in `content`? Choose other for general commentary with no application.",
+      "criteria": {
+        "research": "collecting, filtering, ranking or curating information/datasets",
+        "computer_use": "browser/desktop navigation or voice control",
+        "coding": "code review, locating code or failure triage",
+        "context": "conversation/context pruning",
+        "routing": "model or skill selection",
+        "guard": "security or permission checks",
+        "writing": "writing quality or citation support",
+        "automation": "home automation or wake-up control",
+        "game": "games and simulation decisions",
+        "evaluation": "multi-dimensional ratings or model benchmarking",
+        "other": "infrastructure, general commentary, or none fits"
+      }
+    },
+    "same_request_parallel": {
+      "type": "noul",
+      "instructions": "Does `content` explicitly describe multiple independent questions evaluated together in one Jev request? Do not infer this just because it uses Jev."
+    },
+    "multi_request_concurrency": {
+      "type": "noul",
+      "instructions": "Does `content` explicitly describe several separate Jev API requests in flight concurrently, rather than just many questions in one request?"
+    },
+    "requires_generation": {
+      "type": "noul",
+      "instructions": "Does the described normal workflow require another generative LLM to produce text or plan, in addition to Jev?"
+    },
+    "available_code": {
+      "type": "noul",
+      "instructions": "Does `content` describe a concrete repository, source files or runnable installation/usage instructions, rather than only a proposal?"
+    },
+    "measurement": {
+      "type": "choice",
+      "instructions": "What measurement evidence is described in `content`? This is about what the author reports, NOT whether it has been independently verified.",
+      "criteria": {
+        "comparison": "quantitative task comparison with another method and described dataset or trials",
+        "local_tests": "tests or one-system measured examples without a controlled comparison",
+        "claim": "speed/quality assertions without a described measurement method",
+        "none": "no measurement claim"
+      }
+    },
+    "changes_runtime": {
+      "type": "noul",
+      "instructions": "Does installation or normal activation alter ongoing agent or shell behavior using hooks, proxies, automatic routing, or history mutation?"
+    },
+    "research_fit": {
+      "type": "score",
+      "instructions": "How directly does the documented workflow help collect, organize or compare sources from X, GitHub and Reddit? Judge documented functions only.",
+      "criteria": [
+        "unrelated",
+        "an indirect component",
+        "useful for one stage with integration",
+        "directly provides source collection and structured comparison"
+      ]
+    }
+  }
+}

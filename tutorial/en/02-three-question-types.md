@@ -1,57 +1,19 @@
-# Lesson 2: three kinds of question
+# Lesson 2: Three question types
 
-## Scenario
-
-Three messages, three different worries. A security alert: is it trying to make me click? A party invitation: what kind of message is this? A clinic reminder: how soon do I need to deal with it? A single "important or not" switch cannot hold those three answers.
-
-**Cause:** different questions have different answer shapes; forcing them through one shape loses information. **What this lesson changes:** you pick the question type by what the answer means.
-
-**Goal:** learn when to ask yes/no, pick-one, or rate, using the `jev` command.
-
-## Do
+Whether to reply, what category a message belongs to, and how urgent it is need different answer shapes.
 
 ```sh
-jev ask  "Is this message trying to get me to click a link or log in?" \
-         --text "Your account was used to sign in on a new device. If this wasn't you, secure your account now: account-verify-center.net"
-jev pick "What kind of message is this?" \
-         --options "bill:a payment I owe,scam:phishing or fraud,invite:an invitation,personal:someone I know asks me something,other" \
-         --text "週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～"
-jev rate "How soon does this need my attention?" --levels "can wait a week,within a few days,today" \
-         --text "Hi, this is the clinic. Your appointment is tomorrow at 10:30. Reply Y to confirm or call to reschedule."
+node bin/jev.mjs ask "Does this need a reply?" --text "Dinner Saturday? Please let me know."
+node bin/jev.mjs pick "What kind of message is this?" --options "invitation,advertisement,pickup notice,other" --text "Your package is ready. Collect it within three days."
+node bin/jev.mjs rate "How soon does this need attention?" --levels "can wait,handle today,handle immediately" --text "We leave in ten minutes but I cannot find my keys."
 ```
 
-## What you should see (recorded 2026-09-19, jev-1.13.0)
+`ask` returns probability of yes. `pick` displays option probabilities, an arrow, and confidence. `rate` uses ordered levels numbered 0, 1, 2; the score can fall between levels.
 
-```text
-███████████████████·  97%  yes                    ← ask: one probability
+Confidence is not accuracy: 0.9 describes a concentrated distribution, not a guarantee of being right nine times out of ten. Use low confidence as a review signal.
 
-████████████████████ 100%  invite  ←              ← pick: every option gets a share
-····················   0%  personal
-····················   0%  other
-····················   0%  bill
-····················   0%  scam
-confidence 1.00
+Separate options with commas. Include `other` if inputs may fall outside your categories. Give levels concrete meanings in increasing order.
 
-····················   0%  0 can wait a week      ← rate: a distribution over ordered levels
-█████···············  23%  1 within a few days
-███████████████·····  77%  2 today
-score 1.77 of 2  → today  confidence 0.65
-```
+Exercise: try work, family, shopping, and other on three messages. An unfamiliar input is not guaranteed to produce other or low confidence.
 
-## Which one to use
-
-| You want to know | Use | Why |
-| --- | --- | --- |
-| whether a condition holds | `ask` (noul) | one number, no confidence needed |
-| which one of a known set | `pick` (choice) | you get the runner-up too, and a confidence |
-| how much, along one dimension | `rate` (score) | levels are ordered, so 1.77 means "closer to today than to a few days" |
-
-Two rules that save you later:
-- `pick` **always** gets an `other` option. Without it the model must pick something even when nothing fits.
-- `rate` levels must describe situations, not adjectives. "within a few days" beats "medium".
-
-## Exercise
-
-Run `jev pick` on a message that fits none of your options and watch `other` win or the confidence collapse. That is the model telling you the set is incomplete.
-
-Next: [Lesson 3: writing a question the model can answer](03-writing-questions.md)
+Next: [Ask one clear question](03-writing-questions.md)

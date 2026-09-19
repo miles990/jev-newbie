@@ -1,0 +1,2073 @@
+{
+  "note": "Model judgments, not verified facts. Manual corrections are in the research report. Sources are not independent experiments.",
+  "records": [
+    {
+      "source": {
+        "source_id": "0xNatoshi/jev-codex-router",
+        "platform": "github",
+        "url": "https://github.com/0xNatoshi/jev-codex-router/blob/main/README.md",
+        "revision": "d147063e89ee06e0c2ce06db98a38fd48b7a4a09"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.228Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "routing",
+          "confidence": 1,
+          "probabilities": {
+            "writing": 0,
+            "evaluation": 0,
+            "game": 0,
+            "routing": 1,
+            "computer_use": 0,
+            "other": 0,
+            "automation": 0,
+            "research": 0,
+            "guard": 0,
+            "context": 0,
+            "coding": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.04
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.06
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.88
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "comparison",
+          "confidence": 1,
+          "probabilities": {
+            "local_tests": 0,
+            "none": 0,
+            "comparison": 1,
+            "claim": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.82
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.01,
+          "confidence": 0.99,
+          "probabilities": {
+            "0": 0.99,
+            "1": 0.01,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 687,
+      "inputTokens": 3732
+    },
+    {
+      "source": {
+        "source_id": "AkashPriyadarshii/jev-curate",
+        "platform": "github",
+        "url": "https://github.com/AkashPriyadarshii/jev-curate/blob/main/README.md",
+        "revision": "284371c59e7cc2b25d3fd9007ea060370405eba9"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.281Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "research",
+          "confidence": 1,
+          "probabilities": {
+            "writing": 0,
+            "routing": 0,
+            "other": 0,
+            "research": 1,
+            "context": 0,
+            "guard": 0,
+            "evaluation": 0,
+            "automation": 0,
+            "game": 0,
+            "coding": 0,
+            "computer_use": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.51
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.56
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.07
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "claim",
+          "confidence": 0.57,
+          "probabilities": {
+            "local_tests": 0.02,
+            "comparison": 0.3,
+            "none": 0,
+            "claim": 0.68
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.05
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.18,
+          "confidence": 0.82,
+          "probabilities": {
+            "0": 0.85,
+            "1": 0.13,
+            "2": 0.02,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 727,
+      "inputTokens": 3235
+    },
+    {
+      "source": {
+        "source_id": "AboveColin/HA-Jev",
+        "platform": "github",
+        "url": "https://github.com/AboveColin/HA-Jev/blob/main/README.md",
+        "revision": "2980312a76d197753acd41d3ac945ea74c74958c"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.312Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "automation",
+          "confidence": 1,
+          "probabilities": {
+            "writing": 0,
+            "game": 0,
+            "research": 0,
+            "coding": 0,
+            "computer_use": 0,
+            "context": 0,
+            "routing": 0,
+            "automation": 1,
+            "other": 0,
+            "guard": 0,
+            "evaluation": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.09
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.17
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.69,
+          "probabilities": {
+            "none": 0,
+            "claim": 0.01,
+            "local_tests": 0.77,
+            "comparison": 0.22
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.53
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.01,
+          "confidence": 0.99,
+          "probabilities": {
+            "0": 0.99,
+            "1": 0.01,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 758,
+      "inputTokens": 4493
+    },
+    {
+      "source": {
+        "source_id": "DanRWilloughby/snifftest",
+        "platform": "github",
+        "url": "https://github.com/DanRWilloughby/snifftest/blob/main/README.md",
+        "revision": "6b0bd580487e6ce2bd81b5556d39a857366d6594"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.380Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "writing",
+          "confidence": 0.92,
+          "probabilities": {
+            "evaluation": 0.06,
+            "game": 0,
+            "coding": 0,
+            "research": 0,
+            "automation": 0,
+            "context": 0,
+            "routing": 0,
+            "computer_use": 0,
+            "writing": 0.93,
+            "guard": 0,
+            "other": 0.01
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.55
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.06
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.1
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "comparison",
+          "confidence": 1,
+          "probabilities": {
+            "claim": 0,
+            "local_tests": 0,
+            "none": 0,
+            "comparison": 1
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.18
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.06,
+          "confidence": 0.94,
+          "probabilities": {
+            "0": 0.96,
+            "1": 0.03,
+            "2": 0.01,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 825,
+      "inputTokens": 5826
+    },
+    {
+      "source": {
+        "source_id": "Sac-Y/Jev-cu",
+        "platform": "github",
+        "url": "https://github.com/Sac-Y/Jev-cu/blob/main/README.md",
+        "revision": "2d6d376683a887c411a9410e1beffe5fff45e913"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.524Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "computer_use",
+          "confidence": 1,
+          "probabilities": {
+            "writing": 0,
+            "guard": 0,
+            "research": 0,
+            "context": 0,
+            "routing": 0,
+            "coding": 0,
+            "automation": 0,
+            "computer_use": 1,
+            "other": 0,
+            "game": 0,
+            "evaluation": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.1
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.02
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.61
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.93,
+          "probabilities": {
+            "local_tests": 0.95,
+            "claim": 0.02,
+            "none": 0.03,
+            "comparison": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.21
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.01,
+          "confidence": 0.99,
+          "probabilities": {
+            "0": 0.99,
+            "1": 0.01,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 241,
+      "inputTokens": 1627
+    },
+    {
+      "source": {
+        "source_id": "dbreunig/building-with-jev-skill",
+        "platform": "github",
+        "url": "https://github.com/dbreunig/building-with-jev-skill/blob/main/README.md",
+        "revision": "ac5b57793dedce077bb040b312d637b1d59cc156"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.569Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "coding",
+          "confidence": 0.62,
+          "probabilities": {
+            "computer_use": 0,
+            "guard": 0,
+            "coding": 0.65,
+            "evaluation": 0.28,
+            "game": 0,
+            "context": 0,
+            "routing": 0,
+            "automation": 0,
+            "writing": 0.01,
+            "other": 0.06,
+            "research": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.09
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.02
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.65
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "none",
+          "confidence": 0.98,
+          "probabilities": {
+            "comparison": 0,
+            "local_tests": 0,
+            "claim": 0.01,
+            "none": 0.99
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.49
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.07,
+          "confidence": 0.93,
+          "probabilities": {
+            "0": 0.94,
+            "1": 0.05,
+            "2": 0.01,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 256,
+      "inputTokens": 1299
+    },
+    {
+      "source": {
+        "source_id": "devagrawal09/jev-code",
+        "platform": "github",
+        "url": "https://github.com/devagrawal09/jev-code/blob/main/README.md",
+        "revision": "206d382acc21c23d1682c7e241d7c79ba1802ab9"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.633Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "coding",
+          "confidence": 1,
+          "probabilities": {
+            "computer_use": 0,
+            "writing": 0,
+            "guard": 0,
+            "evaluation": 0,
+            "other": 0,
+            "context": 0,
+            "coding": 1,
+            "routing": 0,
+            "automation": 0,
+            "game": 0,
+            "research": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.68
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.09
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.3
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.94
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "none",
+          "confidence": 0.71,
+          "probabilities": {
+            "comparison": 0,
+            "claim": 0.03,
+            "none": 0.78,
+            "local_tests": 0.19
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.05
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.42,
+          "confidence": 0.58,
+          "probabilities": {
+            "0": 0.69,
+            "1": 0.22,
+            "2": 0.08,
+            "3": 0.01
+          }
+        }
+      },
+      "latencyMs": 253,
+      "inputTokens": 3684
+    },
+    {
+      "source": {
+        "source_id": "hev/reranker",
+        "platform": "github",
+        "url": "https://github.com/hev/reranker/blob/main/README.md",
+        "revision": "b581cbf7b4378e5232352fcc02a93de7bb6859a2"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.806Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "research",
+          "confidence": 0.97,
+          "probabilities": {
+            "writing": 0,
+            "evaluation": 0.02,
+            "game": 0,
+            "routing": 0,
+            "computer_use": 0,
+            "automation": 0,
+            "other": 0.01,
+            "research": 0.97,
+            "guard": 0,
+            "context": 0,
+            "coding": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.61
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.14
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "comparison",
+          "confidence": 1,
+          "probabilities": {
+            "local_tests": 0,
+            "none": 0,
+            "comparison": 1,
+            "claim": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.06
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.44,
+          "confidence": 0.56,
+          "probabilities": {
+            "0": 0.67,
+            "1": 0.22,
+            "2": 0.1,
+            "3": 0.01
+          }
+        }
+      },
+      "latencyMs": 281,
+      "inputTokens": 2724
+    },
+    {
+      "source": {
+        "source_id": "itsmostafa/typesafe-mcp",
+        "platform": "github",
+        "url": "https://github.com/itsmostafa/typesafe-mcp/blob/main/README.md",
+        "revision": "c002b914d446a00039984ba1f251e4a15ea76404"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.818Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "routing",
+          "confidence": 0.85,
+          "probabilities": {
+            "game": 0,
+            "research": 0,
+            "guard": 0,
+            "routing": 0.87,
+            "automation": 0,
+            "context": 0,
+            "evaluation": 0.11,
+            "other": 0,
+            "coding": 0.02,
+            "computer_use": 0,
+            "writing": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.11
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.57
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "none",
+          "confidence": 0.62,
+          "probabilities": {
+            "claim": 0.27,
+            "comparison": 0,
+            "local_tests": 0.01,
+            "none": 0.72
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.46
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.04,
+          "confidence": 0.96,
+          "probabilities": {
+            "0": 0.97,
+            "1": 0.02,
+            "2": 0.01,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 249,
+      "inputTokens": 2830
+    },
+    {
+      "source": {
+        "source_id": "MarissaFamularo/citation-verifier",
+        "platform": "github",
+        "url": "https://github.com/MarissaFamularo/citation-verifier/blob/main/README.md",
+        "revision": "0f5a3e74c5bebcb03d3014cd65428efffc0d3cd7"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.840Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "writing",
+          "confidence": 0.83,
+          "probabilities": {
+            "context": 0,
+            "game": 0,
+            "research": 0.01,
+            "computer_use": 0,
+            "writing": 0.84,
+            "evaluation": 0.14,
+            "guard": 0,
+            "automation": 0,
+            "coding": 0,
+            "routing": 0,
+            "other": 0.01
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.04
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.04
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.9
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "none",
+          "confidence": 0.27,
+          "probabilities": {
+            "none": 0.45,
+            "claim": 0.29,
+            "comparison": 0,
+            "local_tests": 0.26
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.12
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.3,
+          "confidence": 0.7,
+          "probabilities": {
+            "0": 0.79,
+            "1": 0.15,
+            "2": 0.03,
+            "3": 0.03
+          }
+        }
+      },
+      "latencyMs": 610,
+      "inputTokens": 2011
+    },
+    {
+      "source": {
+        "source_id": "komikat/jev-bfs",
+        "platform": "github",
+        "url": "https://github.com/komikat/jev-bfs/blob/main/README.md",
+        "revision": "b44613a9a805798f7b0066111c02c221534e5d79"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:42.874Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "research",
+          "confidence": 0.34,
+          "probabilities": {
+            "other": 0.02,
+            "guard": 0,
+            "routing": 0.33,
+            "automation": 0.01,
+            "research": 0.39,
+            "game": 0,
+            "evaluation": 0.07,
+            "coding": 0,
+            "context": 0,
+            "writing": 0,
+            "computer_use": 0.18
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.27
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.93
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.06
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.99
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.71,
+          "probabilities": {
+            "comparison": 0,
+            "none": 0.06,
+            "local_tests": 0.78,
+            "claim": 0.16
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.28
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.12,
+          "confidence": 0.88,
+          "probabilities": {
+            "0": 0.9,
+            "1": 0.07,
+            "2": 0.02,
+            "3": 0.01
+          }
+        }
+      },
+      "latencyMs": 241,
+      "inputTokens": 1941
+    },
+    {
+      "source": {
+        "source_id": "moritzkremb/jev-voice-browser",
+        "platform": "github",
+        "url": "https://github.com/moritzkremb/jev-voice-browser/blob/main/README.md",
+        "revision": "fa033303eeefb82528327d28b4a9388972ca1c82"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.059Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "computer_use",
+          "confidence": 1,
+          "probabilities": {
+            "context": 0,
+            "automation": 0,
+            "writing": 0,
+            "coding": 0,
+            "routing": 0,
+            "computer_use": 1,
+            "other": 0,
+            "evaluation": 0,
+            "game": 0,
+            "research": 0,
+            "guard": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.87
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.04
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.99
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 1,
+          "probabilities": {
+            "local_tests": 1,
+            "claim": 0,
+            "none": 0,
+            "comparison": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.08
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.36,
+          "confidence": 0.64,
+          "probabilities": {
+            "0": 0.69,
+            "1": 0.26,
+            "2": 0.04,
+            "3": 0.01
+          }
+        }
+      },
+      "latencyMs": 239,
+      "inputTokens": 3698
+    },
+    {
+      "source": {
+        "source_id": "leepokai/jev-guard",
+        "platform": "github",
+        "url": "https://github.com/leepokai/jev-guard/blob/main/README.md",
+        "revision": "b8224944a241952e89abfa04e080c08bf518c021"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.085Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "guard",
+          "confidence": 1,
+          "probabilities": {
+            "writing": 0,
+            "research": 0,
+            "guard": 1,
+            "automation": 0,
+            "routing": 0,
+            "computer_use": 0,
+            "other": 0,
+            "coding": 0,
+            "game": 0,
+            "context": 0,
+            "evaluation": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.89
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.1
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.57
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.78,
+          "probabilities": {
+            "comparison": 0.16,
+            "claim": 0,
+            "local_tests": 0.84,
+            "none": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.1,
+          "confidence": 0.9,
+          "probabilities": {
+            "0": 0.92,
+            "1": 0.06,
+            "2": 0.02,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 278,
+      "inputTokens": 5873
+    },
+    {
+      "source": {
+        "source_id": "shitianfang/wakegate",
+        "platform": "github",
+        "url": "https://github.com/shitianfang/wakegate/blob/main/README.md",
+        "revision": "cdfdb98b6ceef4b27cec7a02171b6d328bc6ff36"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.126Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "automation",
+          "confidence": 0.58,
+          "probabilities": {
+            "computer_use": 0,
+            "writing": 0,
+            "research": 0,
+            "automation": 0.62,
+            "coding": 0,
+            "game": 0,
+            "other": 0.03,
+            "context": 0.05,
+            "guard": 0.06,
+            "evaluation": 0.08,
+            "routing": 0.16
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.05
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.03
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.6
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.57,
+          "probabilities": {
+            "comparison": 0.32,
+            "claim": 0,
+            "local_tests": 0.68,
+            "none": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.05
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.01,
+          "confidence": 0.99,
+          "probabilities": {
+            "0": 0.99,
+            "1": 0.01,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 251,
+      "inputTokens": 3234
+    },
+    {
+      "source": {
+        "source_id": "mrnugget/jev-shell-history",
+        "platform": "github",
+        "url": "https://github.com/mrnugget/jev-shell-history/blob/main/README.md",
+        "revision": "aad90b578ad3d6a30868eef475adc0f5df1bc59c"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.249Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "computer_use",
+          "confidence": 0.5,
+          "probabilities": {
+            "other": 0.13,
+            "guard": 0,
+            "routing": 0.02,
+            "automation": 0.04,
+            "research": 0.1,
+            "game": 0,
+            "coding": 0.11,
+            "evaluation": 0.04,
+            "context": 0,
+            "writing": 0.01,
+            "computer_use": 0.55
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.96
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.07
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.06
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "claim",
+          "confidence": 0.37,
+          "probabilities": {
+            "comparison": 0,
+            "none": 0,
+            "local_tests": 0.47,
+            "claim": 0.53
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.94
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.02,
+          "confidence": 0.98,
+          "probabilities": {
+            "0": 0.99,
+            "1": 0.01,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 408,
+      "inputTokens": 2290
+    },
+    {
+      "source": {
+        "source_id": "superagents-lab/jev-search",
+        "platform": "github",
+        "url": "https://github.com/superagents-lab/jev-search/blob/main/README.md",
+        "revision": "ba0174968cb3baf63bbcde51c7ffc5ad3de49b8a"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.296Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "research",
+          "confidence": 0.98,
+          "probabilities": {
+            "automation": 0,
+            "context": 0,
+            "routing": 0,
+            "research": 0.99,
+            "game": 0,
+            "coding": 0,
+            "other": 0.01,
+            "computer_use": 0,
+            "evaluation": 0,
+            "guard": 0,
+            "writing": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.13
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.45
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.36
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "none",
+          "confidence": 0.3,
+          "probabilities": {
+            "claim": 0.41,
+            "local_tests": 0.11,
+            "none": 0.48,
+            "comparison": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.15
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 2.77,
+          "confidence": 0.77,
+          "probabilities": {
+            "0": 0,
+            "1": 0.01,
+            "2": 0.2,
+            "3": 0.79
+          }
+        }
+      },
+      "latencyMs": 237,
+      "inputTokens": 3265
+    },
+    {
+      "source": {
+        "source_id": "teyhouse/jev-secret-detection",
+        "platform": "github",
+        "url": "https://github.com/teyhouse/jev-secret-detection/blob/main/README.md",
+        "revision": "c7ab3ad140f1b1634952b500dc8fa3910b651f5a"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.377Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "evaluation",
+          "confidence": 0.93,
+          "probabilities": {
+            "writing": 0,
+            "routing": 0,
+            "coding": 0,
+            "context": 0,
+            "evaluation": 0.9400000000000001,
+            "guard": 0.06,
+            "computer_use": 0,
+            "research": 0,
+            "other": 0,
+            "automation": 0,
+            "game": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.05
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.84
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.07
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.97
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.75,
+          "probabilities": {
+            "none": 0,
+            "comparison": 0.18,
+            "claim": 0,
+            "local_tests": 0.8200000000000001
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.08
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.46,
+          "confidence": 0.54,
+          "probabilities": {
+            "0": 0.65,
+            "1": 0.25,
+            "2": 0.07,
+            "3": 0.03
+          }
+        }
+      },
+      "latencyMs": 251,
+      "inputTokens": 3854
+    },
+    {
+      "source": {
+        "source_id": "tamaratran/fast-jev-compaction",
+        "platform": "github",
+        "url": "https://github.com/tamaratran/fast-jev-compaction/blob/main/README.md",
+        "revision": "8f4f65b5567600cd8257c54fc3beb7c8f3c861d9"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.457Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "context",
+          "confidence": 1,
+          "probabilities": {
+            "game": 0,
+            "research": 0,
+            "other": 0,
+            "routing": 0,
+            "automation": 0,
+            "context": 1,
+            "computer_use": 0,
+            "evaluation": 0,
+            "coding": 0,
+            "guard": 0,
+            "writing": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.79
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.95
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.24
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.98
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.22,
+          "probabilities": {
+            "claim": 0.32,
+            "comparison": 0,
+            "local_tests": 0.41,
+            "none": 0.27
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.9
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.02,
+          "confidence": 0.98,
+          "probabilities": {
+            "0": 0.99,
+            "1": 0.01,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 372,
+      "inputTokens": 3260
+    },
+    {
+      "source": {
+        "source_id": "reddit-1wiw6tk",
+        "platform": "reddit",
+        "url": "https://www.reddit.com/r/SideProject/comments/1wiw6tk/i_built_a_side_project_to_test_typesafes_jev/",
+        "revision": "1789656745"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.530Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "evaluation",
+          "confidence": 0.99,
+          "probabilities": {
+            "routing": 0,
+            "other": 0.01,
+            "automation": 0,
+            "guard": 0,
+            "game": 0,
+            "evaluation": 0.99,
+            "context": 0,
+            "computer_use": 0,
+            "writing": 0,
+            "coding": 0,
+            "research": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.79
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.78
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.24
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.42
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "claim",
+          "confidence": 0.85,
+          "probabilities": {
+            "claim": 0.89,
+            "none": 0,
+            "local_tests": 0.01,
+            "comparison": 0.1
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.08
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.04,
+          "confidence": 0.96,
+          "probabilities": {
+            "0": 0.97,
+            "1": 0.03,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 281,
+      "inputTokens": 1197
+    },
+    {
+      "source": {
+        "source_id": "reddit-1whsav6",
+        "platform": "reddit",
+        "url": "https://www.reddit.com/r/PiCodingAgent/comments/1whsav6/anyone_else_testing_out_typesafe_ais_new_system/",
+        "revision": "1789550783"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.563Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "guard",
+          "confidence": 1,
+          "probabilities": {
+            "other": 0,
+            "coding": 0,
+            "research": 0,
+            "game": 0,
+            "automation": 0,
+            "context": 0,
+            "routing": 0,
+            "computer_use": 0,
+            "writing": 0,
+            "guard": 1,
+            "evaluation": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.09
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.02
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.55
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.06
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "claim",
+          "confidence": 0.95,
+          "probabilities": {
+            "claim": 0.97,
+            "none": 0,
+            "local_tests": 0.03,
+            "comparison": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.31
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.13,
+          "confidence": 0.87,
+          "probabilities": {
+            "0": 0.92,
+            "1": 0.05,
+            "2": 0.02,
+            "3": 0.01
+          }
+        }
+      },
+      "latencyMs": 266,
+      "inputTokens": 1123
+    },
+    {
+      "source": {
+        "source_id": "reddit-1wiu1ej",
+        "platform": "reddit",
+        "url": "https://www.reddit.com/r/LLMDevs/comments/1wiu1ej/typesafe_jev_secret_detection_test/",
+        "revision": "1789651755"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.645Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "guard",
+          "confidence": 0.52,
+          "probabilities": {
+            "coding": 0.06,
+            "evaluation": 0.37,
+            "guard": 0.56,
+            "game": 0,
+            "computer_use": 0,
+            "writing": 0,
+            "other": 0.01,
+            "research": 0,
+            "automation": 0,
+            "context": 0,
+            "routing": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.07
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.03
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.2
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.75
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.91,
+          "probabilities": {
+            "claim": 0.07,
+            "local_tests": 0.93,
+            "comparison": 0,
+            "none": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.16
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.69,
+          "confidence": 0.31,
+          "probabilities": {
+            "0": 0.52,
+            "1": 0.32,
+            "2": 0.11,
+            "3": 0.05
+          }
+        }
+      },
+      "latencyMs": 267,
+      "inputTokens": 1401
+    },
+    {
+      "source": {
+        "source_id": "x-sac",
+        "platform": "x",
+        "url": "https://x.com/Saccc_c/status/2101152089598791845",
+        "revision": "2026-09-19"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.695Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "computer_use",
+          "confidence": 0.98,
+          "probabilities": {
+            "other": 0,
+            "research": 0,
+            "coding": 0.01,
+            "game": 0,
+            "evaluation": 0,
+            "automation": 0,
+            "computer_use": 0.99,
+            "guard": 0,
+            "writing": 0,
+            "context": 0,
+            "routing": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.03
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.03
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.64
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.93
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "claim",
+          "confidence": 0.4,
+          "probabilities": {
+            "none": 0,
+            "comparison": 0.01,
+            "local_tests": 0.44,
+            "claim": 0.55
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.44
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.13,
+          "confidence": 0.87,
+          "probabilities": {
+            "0": 0.89,
+            "1": 0.09,
+            "2": 0.02,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 237,
+      "inputTokens": 1040
+    },
+    {
+      "source": {
+        "source_id": "x-kagerou",
+        "platform": "x",
+        "url": "https://x.com/shiromacKagerou/status/2100827466059444311",
+        "revision": "2026-09-18"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.754Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "other",
+          "confidence": 0.46,
+          "probabilities": {
+            "writing": 0,
+            "game": 0,
+            "research": 0,
+            "coding": 0.44,
+            "computer_use": 0,
+            "context": 0,
+            "routing": 0.01,
+            "automation": 0.01,
+            "evaluation": 0.02,
+            "guard": 0,
+            "other": 0.52
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.03
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.02
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.26
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.09
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "claim",
+          "confidence": 0.94,
+          "probabilities": {
+            "claim": 0.96,
+            "none": 0.04,
+            "local_tests": 0,
+            "comparison": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.2
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.16,
+          "confidence": 0.84,
+          "probabilities": {
+            "0": 0.89,
+            "1": 0.08,
+            "2": 0.02,
+            "3": 0.01
+          }
+        }
+      },
+      "latencyMs": 223,
+      "inputTokens": 1056
+    },
+    {
+      "source": {
+        "source_id": "x-tetris",
+        "platform": "x",
+        "url": "https://x.com/J_niwacis/status/2100791658346676691",
+        "revision": "2026-09-18"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:10:43.821Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "game",
+          "confidence": 0.82,
+          "probabilities": {
+            "routing": 0,
+            "other": 0,
+            "automation": 0,
+            "context": 0,
+            "writing": 0,
+            "research": 0,
+            "evaluation": 0.16,
+            "game": 0.84,
+            "guard": 0,
+            "computer_use": 0,
+            "coding": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.11
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.03
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.28
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.05
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "comparison",
+          "confidence": 1,
+          "probabilities": {
+            "comparison": 1,
+            "none": 0,
+            "local_tests": 0,
+            "claim": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.18
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.27,
+          "confidence": 0.73,
+          "probabilities": {
+            "0": 0.83,
+            "1": 0.11,
+            "2": 0.03,
+            "3": 0.03
+          }
+        }
+      },
+      "latencyMs": 257,
+      "inputTokens": 1152
+    },
+    {
+      "source": {
+        "source_id": "spritefusion-levels",
+        "platform": "author-blog",
+        "url": "https://www.spritefusion.com/blog/generating-game-level-in-real-time-with-jev"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:18:48.336Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "game",
+          "confidence": 1,
+          "probabilities": {
+            "writing": 0,
+            "coding": 0,
+            "game": 1,
+            "evaluation": 0,
+            "computer_use": 0,
+            "routing": 0,
+            "context": 0,
+            "research": 0,
+            "automation": 0,
+            "guard": 0,
+            "other": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.92
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.04
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.28
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.09
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 1,
+          "probabilities": {
+            "local_tests": 1,
+            "none": 0,
+            "comparison": 0,
+            "claim": 0
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.12
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.01,
+          "confidence": 0.99,
+          "probabilities": {
+            "0": 1,
+            "1": 0,
+            "2": 0,
+            "3": 0
+          }
+        }
+      },
+      "latencyMs": 586,
+      "inputTokens": 1057
+    },
+    {
+      "source": {
+        "source_id": "x-yyyole",
+        "platform": "x",
+        "url": "https://x.com/yyyole/status/2100879695017632025"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:18:48.347Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "research",
+          "confidence": 0.87,
+          "probabilities": {
+            "game": 0,
+            "context": 0,
+            "other": 0.01,
+            "guard": 0,
+            "automation": 0,
+            "computer_use": 0,
+            "research": 0.88,
+            "coding": 0,
+            "routing": 0,
+            "evaluation": 0.11,
+            "writing": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.5
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.03
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.23
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.17
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.58,
+          "probabilities": {
+            "none": 0,
+            "claim": 0.31,
+            "local_tests": 0.6799999999999999,
+            "comparison": 0.01
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.15
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.89,
+          "confidence": 0.11,
+          "probabilities": {
+            "0": 0.5,
+            "1": 0.26,
+            "2": 0.11,
+            "3": 0.13
+          }
+        }
+      },
+      "latencyMs": 597,
+      "inputTokens": 1261
+    },
+    {
+      "source": {
+        "source_id": "x-berman",
+        "platform": "x",
+        "url": "https://x.com/TheMattBerman/status/2100654891756589230"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:18:48.355Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "evaluation",
+          "confidence": 0.56,
+          "probabilities": {
+            "computer_use": 0,
+            "coding": 0,
+            "guard": 0,
+            "game": 0,
+            "automation": 0.01,
+            "context": 0,
+            "other": 0.02,
+            "routing": 0,
+            "research": 0.37,
+            "writing": 0,
+            "evaluation": 0.6
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.22
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.04
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.25
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.24
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.75,
+          "probabilities": {
+            "comparison": 0,
+            "none": 0,
+            "claim": 0.18,
+            "local_tests": 0.8200000000000001
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.24
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 1.01,
+          "confidence": 0.3,
+          "probabilities": {
+            "0": 0.35,
+            "1": 0.36,
+            "2": 0.22,
+            "3": 0.07
+          }
+        }
+      },
+      "latencyMs": 605,
+      "inputTokens": 1050
+    },
+    {
+      "source": {
+        "source_id": "x-hugo",
+        "platform": "x",
+        "url": "https://x.com/HugoDuprez/status/2100953089003921543"
+      },
+      "model": "jev-1.13.0",
+      "at": "2026-09-19T06:18:48.381Z",
+      "answers": {
+        "use_case": {
+          "type": "choice",
+          "value": "game",
+          "confidence": 1,
+          "probabilities": {
+            "other": 0,
+            "routing": 0,
+            "automation": 0,
+            "context": 0,
+            "writing": 0,
+            "research": 0,
+            "evaluation": 0,
+            "guard": 0,
+            "game": 1,
+            "computer_use": 0,
+            "coding": 0
+          }
+        },
+        "same_request_parallel": {
+          "type": "noul",
+          "p": 0.05
+        },
+        "multi_request_concurrency": {
+          "type": "noul",
+          "p": 0.04
+        },
+        "requires_generation": {
+          "type": "noul",
+          "p": 0.17
+        },
+        "available_code": {
+          "type": "noul",
+          "p": 0.14
+        },
+        "measurement": {
+          "type": "choice",
+          "value": "local_tests",
+          "confidence": 0.64,
+          "probabilities": {
+            "comparison": 0,
+            "none": 0,
+            "local_tests": 0.73,
+            "claim": 0.27
+          }
+        },
+        "changes_runtime": {
+          "type": "noul",
+          "p": 0.17
+        },
+        "research_fit": {
+          "type": "score",
+          "value": 0.11,
+          "confidence": 0.89,
+          "probabilities": {
+            "0": 0.91,
+            "1": 0.07,
+            "2": 0.01,
+            "3": 0.01
+          }
+        }
+      },
+      "latencyMs": 645,
+      "inputTokens": 1088
+    }
+  ]
+}

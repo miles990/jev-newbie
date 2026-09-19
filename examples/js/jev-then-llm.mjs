@@ -23,7 +23,7 @@ async function llm(prompt) {
   if (process.env.ANTHROPIC_API_KEY) {
     const { default: Anthropic } = await import("@anthropic-ai/sdk");
     const client = new Anthropic();
-    const r = await client.messages.create({ model: "claude-opus-5", max_tokens: 1024, messages: [{ role: "user", content: prompt }] });
+    const r = await client.messages.create({ model: process.env.ANTHROPIC_MODEL || (() => { throw new Error("Set ANTHROPIC_MODEL to a model available to your account"); })(), max_tokens: 1024, messages: [{ role: "user", content: prompt }] });
     if (r.stop_reason === "refusal") return "";
     return r.content.filter((b) => b.type === "text").map((b) => b.text).join("").trim();
   }
@@ -51,7 +51,7 @@ for (const item of inbox) {
     },
   });
   const a = j.answers;
-  const gate = a.kind.choice === "scam" ? "junk" : a.kind.choice === "ad" ? "promotions" : a.needsReply.noul > 0.7 ? "draft-reply" : "read-later";
+  const gate = a.kind.confidence < 0.8 ? "review" : a.kind.choice === "scam" ? "review-suspicious" : a.kind.choice === "ad" ? "promotions" : a.needsReply.noul > 0.7 ? "draft-reply" : "read-later";
   log({ stage: "jev-before", item, decision: gate, answers: { kind: a.kind.choice, kindConf: a.kind.confidence, needsReply: a.needsReply.noul, language: a.language.choice, tone: a.tone.choice, urgency: a.urgency.score } });
   console.log(`\n${item.message.slice(0, 48)}…\n  jev: ${a.kind.choice} (${a.kind.confidence.toFixed(2)}), reply p=${a.needsReply.noul.toFixed(2)}, ${a.language.choice}/${a.tone.choice} → ${gate}`);
   if (gate !== "draft-reply") continue;
@@ -60,7 +60,7 @@ for (const item of inbox) {
   let feedback = "";
   for (let attempt = 1; attempt <= 2; attempt++) {
     const prompt = `Draft a reply for ${me.name} to the message below. Output only the reply text, nothing else.
-Facts decided by a classifier (trust them): kind=${a.kind.choice}, language=${a.language.choice === "zh" ? "Traditional Chinese" : "English"}, tone=${a.tone.choice}.
+Tentative classifier labels (check them against the message): kind=${a.kind.choice}, language=${a.language.choice === "zh" ? "Traditional Chinese" : "English"}, tone=${a.tone.choice}.
 ${me.name}'s situation: ${me.availability}. Style: ${me.style}.
 Rules: answer exactly what the sender asked; do not promise money, dates or personal data beyond the situation above.${feedback ? `\nA checker rejected the previous draft: ${feedback}. Fix that.` : ""}
 
@@ -81,8 +81,8 @@ ${item.message}`;
     });
     const b = v.answers;
     const ok = b.answers.noul > 0.7 && b.overcommits.noul < 0.3 && b.sameLanguage.noul > 0.7 && b.polite.noul > 0.7;
-    log({ stage: "jev-after", item, attempt, draft, verdict: ok ? "send" : "retry", checks: { answers: b.answers.noul, overcommits: b.overcommits.noul, sameLanguage: b.sameLanguage.noul, polite: b.polite.noul } });
-    console.log(`  jev check: answers=${b.answers.noul.toFixed(2)} overcommits=${b.overcommits.noul.toFixed(2)} sameLanguage=${b.sameLanguage.noul.toFixed(2)} polite=${b.polite.noul.toFixed(2)} → ${ok ? "SEND" : "retry"}`);
+    log({ stage: "jev-after", item, attempt, draft, verdict: ok ? "review-draft" : attempt === 2 ? "review-failed-check" : "retry", checks: { answers: b.answers.noul, overcommits: b.overcommits.noul, sameLanguage: b.sameLanguage.noul, polite: b.polite.noul } });
+    console.log(`  jev check: answers=${b.answers.noul.toFixed(2)} overcommits=${b.overcommits.noul.toFixed(2)} sameLanguage=${b.sameLanguage.noul.toFixed(2)} polite=${b.polite.noul.toFixed(2)} → ${ok ? "REVIEW DRAFT (not sent)" : attempt === 2 ? "REVIEW: checks still failed" : "retry"}`);
     if (ok) break;
     feedback = [b.answers.noul <= 0.7 && "it did not answer the sender's question", b.overcommits.noul >= 0.3 && "it promised something the situation does not support", b.sameLanguage.noul <= 0.7 && "wrong language", b.polite.noul <= 0.7 && "not polite enough"].filter(Boolean).join("; ");
   }

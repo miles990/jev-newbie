@@ -2,60 +2,111 @@
 
 **English** · [繁體中文](README.zh-TW.md)
 
-Classify, filter, and score text with simple Jev commands. This starter kit includes a CLI, runnable examples, and tutorials to help you try a judgment before adding it to your application.
+**Learn to ask Jev questions, classify text, and rate urgency—starting with an everyday message.**
 
-## See an example
+This is a practical guide for beginners. You do not need to know how to write code: once you have the tools ready, copy a command, replace the sample text, and see how the result changes.
 
-Ask whether a message is a complaint:
+## What can Jev help me do?
+
+Imagine receiving this message:
+
+> Want to have dinner on Saturday? Let me know by tomorrow if you can come.
+
+Give Jev the message and ask a specific question:
+
+| What you want to know | What you ask Jev | What it returns |
+| --- | --- | --- |
+| Should I reply? | Does this message need a reply from me? | The probability of “yes” |
+| What kind of message is it? | Choose from invitation, advertisement, pickup notice, or other | A category and probabilities for each option |
+| How urgent is it? | Rate it from “can wait” to “today” to “immediately” | A score and probabilities for each level |
+
+**You supply the text and question; Jev returns a judgment.** It does not reply to your friend or take action for you. Its judgments can be wrong, so start with messages you understand and can check yourself.
+
+## Get three things ready
+
+1. **Node.js 20 or later:** this runs the commands in this project.
+2. **The project files:** download the ZIP and extract it, or clone the project with Git.
+3. **A [TypeSafe API key](https://console.typesafe.ai):** sign in to obtain a service access key that lets the tool call Jev. Treat it like a password.
+
+Open a terminal (Terminal on macOS or PowerShell on Windows). Type `cd ` followed by the path to the extracted folder, for example:
 
 ```sh
-node bin/jev.mjs ask "這句話是在抱怨嗎？" --text "又壞了，第三次了"
+cd "Downloads/jev-newbie-main"
 ```
 
-The question means “Is this a complaint?” and the message means “It broke again, for the third time.” [Recorded output](examples/expected/cli-ask.txt):
+Replace that path with the actual location on your computer. Then set your key, replacing `paste your key here` below.
 
-```text
-██████████████████··  92%  yes
-```
-
-92% is the probability the model returned for this question; your result may differ. Jev returns judgments and scores, and your code decides what happens next. It does not write a reply or verify that the input is true.
-
-## Run your first judgment
-
-You need **Node.js 20 or later**, Git, and a [TypeSafe API key](https://console.typesafe.ai). Calls send your input to TypeSafe's cloud service and incur API usage.
+**macOS / Linux:**
 
 ```sh
-git clone https://github.com/miles990/jev-newbie.git
-cd jev-newbie
-export TYPESAFE_API_KEY="your API key"
+export TYPESAFE_API_KEY="paste your key here"
+```
 
-node bin/jev.mjs ask "Is this a complaint?" --text "It broke again, for the third time"
+**Windows PowerShell:**
+
+```powershell
+$env:TYPESAFE_API_KEY="paste your key here"
+```
+
+This setting lasts for the current terminal session; set it again when you open a new one. The exercises need only Node.js, with no setup script required. Each judgment sends the text to TypeSafe's cloud service and incurs API usage.
+
+## Exercise 1: Does this message need a reply?
+
+Paste this into the same terminal:
+
+```sh
+node bin/jev.mjs ask "Does this message need a reply from me?" --text "Want to have dinner on Saturday? Let me know by tomorrow if you can come."
+```
+
+There are three parts:
+
+- `node bin/jev.mjs` starts the Jev tool in this project.
+- `ask "Does this message need a reply from me?"` asks a yes/no question.
+- `--text "..."` supplies the text you want it to judge.
+
+The result shows a percentage and `yes`, `no`, or `unsure`. **The percentage is the model's probability of “yes,” not a measure of whether the message is true.** The tool currently displays `yes` above 65%, `no` below 35%, and `unsure` in between.
+
+Now change only the message to “Thanks, the package arrived. No need to reply.” Run it again and see what changes.
+
+## Exercise 2: Sort a message into a category
+
+```sh
+node bin/jev.mjs pick "What kind of message is this?" --options "invitation,advertisement,pickup notice,other" --text "Your package is at the pickup point. Please collect it within three days."
+```
+
+`pick` means “choose one of these options.” `--options` lists your categories, separated by commas. The result shows a probability for each category and an arrow beside the selected one. Keep `other` so messages that do not fit the first three categories have somewhere to go.
+
+Try changing the categories to “work,family,shopping,other” and supplying one of your own messages. **You choose the categories; you do not have to use ours.**
+
+## Exercise 3: Rate how urgent something is
+
+```sh
+node bin/jev.mjs rate "How soon does this need attention?" --levels "can wait,handle today,handle immediately" --text "We need to leave in ten minutes, but I cannot find the house keys."
+```
+
+`rate` judges a degree. Put `--levels` in order from low to high. Here, the three levels are numbered 0, 1, and 2: a score closer to 2 means the model judges it needs more immediate attention. The output also shows probabilities for each level and a corresponding label.
+
+## Look back at your results
+
+```sh
 node bin/jev.mjs view
 ```
 
-These two commands need only Node.js; no package installation is required. `view` creates and opens an HTML report with input previews, answers, code decisions, and latency for successful judgments. Records are saved to `runs/jev-log.jsonl`.
+This creates an HTML report and usually opens it in your browser. If it does not open, open `runs/report.html` inside the project folder yourself. The report shows text previews, questions, answers, and elapsed time for successful judgments, so you can compare changes to your text or questions.
 
-## Three everyday commands
+**Next, find three familiar messages, judge them yourself, and see whether Jev agrees.** If it disagrees, check whether your question is clear, your options cover the possibilities, and any necessary context is missing. A high score does not guarantee a correct answer.
 
-```sh
-# Ask a yes/no question
-node bin/jev.mjs ask "Does this need a reply?" --text "Dinner on Saturday — let me know if you can come"
+## Want help integrating Jev?
 
-# Pick from categories you define
-node bin/jev.mjs pick "What kind of message is this?" --options invite,ad,personal,other --text "Dinner on Saturday — let me know if you can come"
+Once you can use the commands, share the [AI integration guide](docs/en/16-agent-integration.md) with Codex or Claude Code to add Jev to your own tool. It covers question design, evaluation, and scoped implementation. It is an ordinary document; no extra jev-workflow skill installation is required.
 
-# View your judgment history
-node bin/jev.mjs view
-```
+## Keep learning
 
-You can also score text, classify and filter batches, and check results against labeled examples. Start with the [tutorial](tutorial/README.md), then use your own data to evaluate accuracy and choose thresholds.
-
-## Where to go next
-
-- **Learn step by step:** the [tutorial](tutorial/README.md), with commands, outputs, and exercises.
-- **Find a feature:** the [CLI and example reference](docs/en/06-feature-coverage.md), including scoring, batches, and output comparisons.
-- **Decide whether it fits:** [use cases](docs/en/02-find-use-cases.md), [reliability](docs/en/03-reliability.md), and [limitations](docs/en/07-limits-and-caveats.md).
-- **Connect your development tools:** the [SDK, MCP, and agent skill guide](docs/en/04-tools.md). Use `scripts/setup.sh` when you want the full environment; it also installs global tools and configures coding agents.
-- **Explore integrations:** [Jev with an LLM](docs/en/08-jev-with-an-llm.md), the [existing-project use-case audit](docs/workspace-audit.md), and a [sample report](showcase/README.md).
+- [Step-by-step tutorial](tutorial/README.md): write questions, add context, process multiple messages, and check accuracy.
+- [Feature and example reference](docs/en/06-feature-coverage.md): find other commands.
+- [Capabilities and limitations](docs/en/07-limits-and-caveats.md): understand which tasks do not suit Jev.
+- [Development tool integrations](docs/en/04-tools.md): read this when you want to connect Jev to an application or coding agent.
 
 License: [MIT](LICENSE).
+
+Optional: [parallel-question measurements](docs/en/14-speed-and-computer-use.md) · [community cases and tools](docs/en/17-use-case-research.md).

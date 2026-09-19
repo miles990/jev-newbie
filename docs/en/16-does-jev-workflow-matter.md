@@ -1,5 +1,6 @@
 # Does the jev-workflow skill matter? An A/B on a real task
 
+> Historical experiment, not reproduced in this audit. Read the corrected interpretation below.
 Question: is a separate workflow skill necessary, or does the official `typesafe-ai` skill already produce the same result? Answer by experiment, 2026-09-19, headless Claude Code, same task, same repo, one run each.
 
 ## Setup
@@ -8,7 +9,7 @@ A tiny project: `classify.js` routes inbox messages to folders with four regexes
 
 > Using the typesafe-ai skill[ and the jev-workflow skill], replace the keyword classifier in classify.js with a TypeSafe Jev judgment. TYPESAFE_API_KEY is set. messages.txt has sample messages. Make it work and verify it.
 
-Condition A: official skill only, with `jev-workflow` physically removed from the skills directory so it could not be auto-loaded. (A first attempt with the skill merely installed but not named was contaminated: the agent used its vocabulary anyway. Skills you install are read even when you do not name them.) Condition B: both skills named.
+Condition A: official skill only, with `jev-workflow` physically removed from the skills directory so it could not be auto-loaded. (A first attempt with the skill merely installed but not named was contaminated: the agent used its vocabulary anyway. Loading should be verified from traces.) Condition B: both skills named.
 
 ## What each run shipped
 
@@ -29,8 +30,8 @@ Condition A: official skill only, with `jev-workflow` physically removed from th
 
 Both runs produced a working, correct classifier. The difference is everything around it: A shipped a call; B shipped a decision you can test, tune, audit and roll back.
 
-## Verdict
+## Corrected interpretation
 
-The skill is not *necessary* to get Jev working. It is necessary to get the deliverables that make Jev safe to keep: a golden set you can re-run on upgrade, thresholds in one place, a log, fail-open behavior. Without it the agent knows these things exist (run A recommended thresholds "before production") and does not do them. A one-page procedure changed what a capable agent shipped; that is the whole case for it.
+This historical record was not reproduced in this audit. One run per condition does not establish necessity, general effectiveness, or causality. Similar vocabulary does not prove an unnamed skill was loaded; that requires load traces. The table uses both 26 and 30 cases, so it is not evidence of a fair same-dataset comparison.
 
-Two honest limits: one run per condition, on one small task, with one agent; and the same text could live in a project's `CLAUDE.md` or `AGENTS.md` instead of a skill. A skill is the portable form: it follows the person across repos and across Claude Code and Codex. Use whichever form you will actually keep updated.
+Logging, tests, and failure policies are useful regardless of packaging. Fail-open is task-dependent, not a universal benefit. The project now uses an [ordinary integration guide](16-agent-integration.md), avoiding a redundant installation for beginners. A reusable skill can be reconsidered if repeated cross-project needs justify it.
