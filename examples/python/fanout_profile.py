@@ -48,5 +48,4 @@ with TypeSafeClient(model=os.environ.get("JEV_MODEL")) as client:
             queue = "close, no action"
         else:
             queue = "support"
-        top = sorted(p.items(), key=lambda kv: -kv[1])[:3]
-        print(f"{queue:<22} urgency={urgency:.1f}  " + "  ".join(f"{k}={v:.2f}" for k, v in top) + f"\n    ← {m}")
+        print(f"{queue:<22} urgency={urgency:.1f}\n    ← {m}\n    " + "  ".join(f"{k}={p[k]:.2f}" for k in PROPS))

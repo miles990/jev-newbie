@@ -1,4 +1,4 @@
-intent      = fix  (confidence 0.98)  {'fix': 0.99, 'information': 0.0, 'refund': 0.01, 'other': 0.0}
+intent      = fix  (confidence 0.98)  {'fix': 0.98, 'information': 0.0, 'other': 0.0, 'refund': 0.02}
 urgent      = 0.97
-frustration = 1.46 of 2
+frustration = 1.39 of 2
 action      = route to fix

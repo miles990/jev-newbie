@@ -10,8 +10,8 @@
  },
  "frustration": {
   "type": "score",
-  "score": 1.39,
-  "confidence": 0.41,
+  "score": 1.37,
+  "confidence": 0.45,
   "legend": {
    "0": "calm",
    "1": "annoyed but civil",

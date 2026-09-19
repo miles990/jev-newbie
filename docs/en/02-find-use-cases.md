@@ -39,6 +39,23 @@ Jev's closed set constrains the **answer**, not the **input**. The input can be 
 
 What Jev cannot do here: invent the new label. Discovery is a human or generative step; Jev finds the candidates worth looking at and, once the label exists, verifies at scale. The reliable shape is a cascade: Jev screens everything, low-confidence cases go to an LLM, Jev re-verifies the LLM's answer with a new question.
 
+## Collecting and organizing data
+
+Jev does not fetch anything, so it cannot speed up *collection* by itself. It speeds up the two steps around collection that usually cost the most time:
+
+- **Deciding what to collect.** Gate before the expensive fetch: "is this title actually about the query?" over search results, "is this page worth scraping?", "does this issue need the full thread?". One `noul` per candidate, then fetch only the survivors.
+- **Organizing what you collected.** Map-reduce over the pile with one request per item and many questions per request: relevance to your goal, topic, sentiment, whether it duplicates an earlier item, whether it contains a claim you need to verify. The answers become columns; sorting, grouping and deduping happen in code.
+
+```sh
+# 1. collect candidates with any tool (RSS, agent-reach, gh, a scraper) into one-per-line
+# 2. keep only what matters
+jev filter candidates.txt "Is this item about pricing changes for developer tools?" --min 0.6 > kept.txt
+# 3. tag the survivors with a whole question set at once, then look
+jev run tagging.questions.json kept.txt && jev view
+```
+
+At about 300 ms and $0.00002 per item, a thousand items cost two cents and ten minutes sequentially, far less in parallel. Keep the raw items; Jev's answers are annotations you can re-run when the questions change.
+
 ## Try it in five minutes
 
 ```sh

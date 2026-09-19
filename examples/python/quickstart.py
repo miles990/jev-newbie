@@ -28,7 +28,7 @@ with TypeSafeClient(model=os.environ.get("JEV_MODEL")) as client:  # reads TYPES
     )
 
 intent, urgent, frus = r.answers["intent"], r.answers["urgent"], r.answers["frustration"]
-print(f"intent      = {intent.choice}  (confidence {intent.confidence:.2f})  {intent.probabilities}")
+print(f"intent      = {intent.choice}  (confidence {intent.confidence:.2f})  {dict(sorted(intent.probabilities.items()))}")
 print(f"urgent      = {urgent.noul:.2f}")
 print(f"frustration = {frus.score:.2f} of {len(frus.legend) - 1}")
 

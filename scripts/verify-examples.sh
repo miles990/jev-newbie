@@ -2,8 +2,9 @@
 # 重跑每一個範例，把輸出和 examples/expected/ 裡錄下的結果比對。
 # Re-run every example and diff against the recorded outputs in examples/expected/.
 # Jev is calibrated and consistent, so identical inputs give the same labels; probabilities may move
-# by a few hundredths between runs or model versions, so the diff is shown, not failed on. The hard check
-# is `jev check --strict` on the golden set at the end.
+# by a few hundredths between runs. compare-output.py therefore requires every label and line to match
+# exactly and tolerates numeric drift up to 0.15 (scores are 0..N sums); anything beyond that fails. The golden set at the end
+# is checked with --strict.
 #   ./scripts/verify-examples.sh            # compare
 #   ./scripts/verify-examples.sh --record   # overwrite the expected outputs (do this when you change an example)
 set -uo pipefail
@@ -15,9 +16,9 @@ mode="${1:-compare}"; mkdir -p examples/expected; fail=0
 run(){ # name, command...
   local name="$1"; shift; local out="examples/expected/$name.txt"
   if [ "$mode" = "--record" ]; then "$@" > "$out" 2>&1; echo "recorded $out"; return; fi
-  local got; got="$("$@" 2>&1)"
-  if diff -u "$out" <(printf '%s\n' "$got") > /tmp/jev-diff.$$ 2>&1; then echo "  ✓ $name"; else echo "  ~ $name (differs from recording; review below)"; sed -n '1,40p' /tmp/jev-diff.$$; fi
-  rm -f /tmp/jev-diff.$$
+  local got; got="$("$@" 2>&1)"; printf '%s\n' "$got" > /tmp/jev-now.$$
+  if msg="$(python3 scripts/compare-output.py "$out" /tmp/jev-now.$$ 2>&1)"; then echo "  ✓ $name ($msg)"; else echo "  ✗ $name: decisions changed"; echo "$msg" | sed 's/^/      /'; fail=1; fi
+  rm -f /tmp/jev-now.$$
 }
 strip(){ sed -E 's/[0-9]+ ms/N ms/g; s/in [0-9]+ ms/in N ms/g'; }
 echo "model: $JEV_MODEL"
@@ -34,7 +35,7 @@ run cli-classify           node bin/jev.mjs classify examples/cli/support-messag
 run cli-run                node bin/jev.mjs run examples/cli/support.questions.json examples/cli/support-messages.txt
 echo
 echo "golden set (hard check):"
-node bin/jev.mjs check examples/cli/support.questions.json examples/cli/support.cases.jsonl || fail=1
+node bin/jev.mjs check examples/cli/support.questions.json examples/cli/support.cases.jsonl --strict || fail=1
 node bin/jev.mjs view "$JEV_LOG" --no-open >/dev/null && echo "report: runs/report.html"
 [ "$mode" = "--record" ] && exit 0
 exit $fail

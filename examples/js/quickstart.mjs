@@ -18,7 +18,7 @@ const r = await client.systemOne({
 });
 
 const { intent, urgent, frustration } = r.answers;
-console.log("intent     ", intent.choice, `(confidence ${intent.confidence.toFixed(2)})`, intent.probabilities);
+console.log("intent     ", intent.choice, `(confidence ${intent.confidence.toFixed(2)})`, Object.fromEntries(Object.entries(intent.probabilities).sort()));
 console.log("urgent     ", urgent.noul.toFixed(2));
 console.log("frustration", frustration.score.toFixed(2));
 

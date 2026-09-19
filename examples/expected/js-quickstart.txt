@@ -1,4 +1,4 @@
-intent      fix (confidence 0.99) { refund: 0, other: 0, information: 0, fix: 1 }
+intent      fix (confidence 0.99) { fix: 1, information: 0, other: 0, refund: 0 }
 urgent      0.98
-frustration 1.40
+frustration 1.37
 action      route to fix
