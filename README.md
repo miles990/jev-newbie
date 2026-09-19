@@ -41,6 +41,7 @@ Every command appends one line to `runs/jev-log.jsonl`: what went in, what came 
 | `skills/jev-workflow` | An agent skill that teaches Claude Code / Codex the workflow in this repo |
 | `tutorial/` | Eight step-by-step lessons with real recorded outputs, in both languages |
 | `docs/en` `docs/zh-TW` | Short guides: what Jev is, how to find use cases, reliability, tools, observability |
+| `docs/en/08-jev-with-an-llm.md` | Four positions for the seam between Jev and an LLM, with a runnable Jev → LLM → Jev pipeline |
 | `docs/en/07-limits-and-caveats.md` | Hard limits, soft limits, calibration, language, service and design caveats, with sources |
 | `docs/en/06-feature-coverage.md` | Every Jev API feature mapped to the CLI flag and example that exercises it, plus how the recorded outputs are reproduced |
 | `docs/workspace-audit.md` | A real audit of ~60 projects: where Jev would replace fragile code, with file and line |
