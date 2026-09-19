@@ -2,92 +2,60 @@
 
 **English** · [繁體中文](README.zh-TW.md)
 
-A hands-on starter kit for [TypeSafe Jev](https://typesafe.ai): what it can and cannot do, what to install so it works well with your coding agents, runnable examples, a foolproof `jev` command-line tool, and a viewer that shows exactly what Jev decided and why.
+Classify, filter, and score text with simple Jev commands. This starter kit includes a CLI, runnable examples, and tutorials to help you try a judgment before adding it to your application.
 
-Jev is a *System One* model. You send it text or JSON **state** plus **typed questions**; it returns **typed answers with calibrated probabilities** in about 300 ms for about $0.00002 per call. It never generates text, so everything it does can be laid out on a table and checked.
+## See an example
 
-```text
-state (text or JSON) + questions (yes/no · pick one · rate) → probabilities → your code decides
-```
-
-## Tutorial
-
-Eight ten-minute lessons, each with a runnable command and its real recorded output: [tutorial/README.md](tutorial/README.md). Start there if you have never used Jev.
-
-## 60-second start
+Ask whether a message is a complaint:
 
 ```sh
-git clone https://github.com/miles990/jev-newbie && cd jev-newbie
-export TYPESAFE_API_KEY=apikey_...        # https://console.typesafe.ai
-./scripts/setup.sh                         # installs SDKs, the jev CLI, the MCP server for Claude Code / Codex, the skills
-jev doctor
-jev ask  "Is this a complaint?" --text "It broke again, third time this week"
-jev pick "What does the user want?" --options greet,task,question,other --text "run the tests for me"
-jev rate "How urgent?" --levels "can wait,today,within the hour" --text "prod is down, customers waiting"
-jev view                                   # opens a report of every call you just made
+node bin/jev.mjs ask "這句話是在抱怨嗎？" --text "又壞了，第三次了"
 ```
 
-Every command appends one line to `runs/jev-log.jsonl`: what went in, what came out, what the code decided, latency and tokens. `jev view` turns that into a page you can read and share.
+The question means “Is this a complaint?” and the message means “It broke again, for the third time.” [Recorded output](examples/expected/cli-ask.txt):
 
-## What is in here
+```text
+██████████████████··  92%  yes
+```
 
-| Path | What it is |
-| --- | --- |
-| `bin/jev.mjs` | Single-file, zero-dependency CLI: `ask` `pick` `rate` `filter` `classify` `run` `check` `view` `doctor` |
-| `bin/view.html` | The report template `jev view` fills in (bilingual, light/dark) |
-| `examples/curl` `examples/python` `examples/js` | The same first call in three languages, plus unknown-input filtering, speculative fan-out, and an audited wrapper |
-| `examples/cli` | A question set, an item list and a golden test set for `jev run` and `jev check` |
-| `scripts/setup.sh` `scripts/doctor.sh` | One-shot install and environment check |
-| `skills/jev-workflow` | An agent skill that teaches Claude Code / Codex the workflow in this repo |
-| `tutorial/` | Eight step-by-step lessons with real recorded outputs, in both languages |
-| `docs/en` `docs/zh-TW` | Short guides: what Jev is, how to find use cases, reliability, tools, observability |
-| `docs/en/15-competitors.md` | No direct competitor yet; substitutes by cost, labels and latency; the head-to-head results published so far |
-| `docs/en/14-speed-and-computer-use.md` | Measured latency (1 vs 13 questions, sequential vs parallel) and how Jev drives browsers and desktops without seeing them |
-| `docs/en/13-engineering-map.md` | Jev as a calibrated semantic oracle mapped onto every engineering discipline: where it plugs in, what it never replaces |
-| `docs/en/10-monte-carlo.md` `11-multimodal.md` `12-features.md` | Jev with Monte Carlo (policy simulation, expected cost, bootstrap), around images/audio, and as a feature extractor with Fourier and other signal methods |
-| `docs/en/09-converging-loops.md` | LLM proposes, Jev measures, code decides: three loops that converge, with a real 58% → 0% run |
-| `docs/en/08-jev-with-an-llm.md` | Four positions for the seam between Jev and an LLM, with a runnable Jev → LLM → Jev pipeline |
-| `docs/en/07-limits-and-caveats.md` | Hard limits, soft limits, calibration, language, service and design caveats, with sources |
-| `docs/en/06-feature-coverage.md` | Every Jev API feature mapped to the CLI flag and example that exercises it, plus how the recorded outputs are reproduced |
-| `docs/workspace-audit.md` | A real audit of ~60 projects: where Jev would replace fragile code, with file and line |
-| `showcase/` | A published observability dashboard built from 492 real calls in a production repo |
+92% is the probability the model returned for this question; your result may differ. Jev returns judgments and scores, and your code decides what happens next. It does not write a reply or verify that the input is true.
 
-## The three smells that mean "Jev fits here"
+## Run your first judgment
 
-1. **`if`/`else` on strings.** Keyword tables, regex classifiers, tool-name suffix maps. Every new case means editing code.
-2. **Free text that is shown but never acted on.** Agent messages, review notes, user input: printed on screen, ignored by logic.
-3. **Hand-maintained category lists scattered across files.** Adding one item means touching six places.
+You need **Node.js 20 or later**, Git, and a [TypeSafe API key](https://console.typesafe.ai). Calls send your input to TypeSafe's cloud service and incur API usage.
 
-Write the judgment as a closed question (`noul` for yes/no, `choice` for one of N with an `other` option, `score` for a degree), try it on twenty real items with `jev check`, then put the threshold in code. Full guide: [docs/en/02-find-use-cases.md](docs/en/02-find-use-cases.md).
+```sh
+git clone https://github.com/miles990/jev-newbie.git
+cd jev-newbie
+export TYPESAFE_API_KEY="your API key"
 
-## Filtering the unknown, not just the known
+node bin/jev.mjs ask "Is this a complaint?" --text "It broke again, for the third time"
+node bin/jev.mjs view
+```
 
-Jev's closed set constrains the **answer**, not the **input**. Inputs can be tools, messages or files it has never seen; the question stays fixed. New things show up as `other`, a flat distribution or low confidence, and code routes those to a human. Four patterns with examples: [docs/en/02-find-use-cases.md#the-unknown](docs/en/02-find-use-cases.md#the-unknown).
+These two commands need only Node.js; no package installation is required. `view` creates and opens an HTML report with input previews, answers, code decisions, and latency for successful judgments. Records are saved to `runs/jev-log.jsonl`.
 
-## The most reliable way to use Jev
+## Three everyday commands
 
-Closed questions with a no-match option · a golden set of 20 to 30 labeled cases before trusting a threshold · three confidence bands (act / review / refuse) · gates that fail open · a log line for every call · a pinned model version. Details and the checklist: [docs/en/03-reliability.md](docs/en/03-reliability.md).
+```sh
+# Ask a yes/no question
+node bin/jev.mjs ask "Does this need a reply?" --text "Dinner on Saturday — let me know if you can come"
 
-## Tools
+# Pick from categories you define
+node bin/jev.mjs pick "What kind of message is this?" --options invite,ad,personal,other --text "Dinner on Saturday — let me know if you can come"
 
-| Tool | Why | Install |
-| --- | --- | --- |
-| `jev` (this repo) | Try any question from the shell, log everything, view it | `./scripts/setup.sh` |
-| [typesafe-mcp](https://github.com/itsmostafa/typesafe-mcp) | One `evaluate` MCP tool shared by Claude Code, Codex and Claude Desktop | `evaluate setup mcp` |
-| Official [TypeSafe skill](https://docs.typesafe.ai/agent-skill) | Gives your agent the full API knowledge | `claude plugin install typesafe@typesafe-ai` / `npx skills add typesafe-ai/skills` |
-| `typesafe-sdk` / `@typesafe-ai/sdk` | Python and JavaScript clients with retries and types | `pip install typesafe-sdk` / `npm i @typesafe-ai/sdk` |
-| [jev-guard](https://github.com/leepokai/jev-guard), [limpet](https://github.com/noplan-inc/limpet) | Ready-made tool-call safety gate and early-stop gate for coding agents | installed by setup, activated by you |
+# View your judgment history
+node bin/jev.mjs view
+```
 
-More, including what each one changes on your machine: [docs/en/04-tools.md](docs/en/04-tools.md).
+You can also score text, classify and filter batches, and check results against labeled examples. Start with the [tutorial](tutorial/README.md), then use your own data to evaluate accuracy and choose thresholds.
 
-## Reproducible, not made up
+## Where to go next
 
-Every output shown in this repo was produced by a real call. `npm run verify` re-runs all examples with a pinned model and diffs them against `examples/expected/`; `jev check --strict` on the golden set is the hard pass/fail. See [docs/en/06-feature-coverage.md](docs/en/06-feature-coverage.md).
+- **Learn step by step:** the [tutorial](tutorial/README.md), with commands, outputs, and exercises.
+- **Find a feature:** the [CLI and example reference](docs/en/06-feature-coverage.md), including scoring, batches, and output comparisons.
+- **Decide whether it fits:** [use cases](docs/en/02-find-use-cases.md), [reliability](docs/en/03-reliability.md), and [limitations](docs/en/07-limits-and-caveats.md).
+- **Connect your development tools:** the [SDK, MCP, and agent skill guide](docs/en/04-tools.md). Use `scripts/setup.sh` when you want the full environment; it also installs global tools and configures coding agents.
+- **Explore integrations:** [Jev with an LLM](docs/en/08-jev-with-an-llm.md), the [existing-project use-case audit](docs/workspace-audit.md), and a [sample report](showcase/README.md).
 
-## What Jev does not do
-
-Generate text · read images, audio or video · arithmetic · date comparison · invent new labels. Keep those in code, a vision model or an LLM. Jev's job is to pick, rate, and say yes/no with an honest probability.
-
-## License
-
-MIT
+License: [MIT](LICENSE).
