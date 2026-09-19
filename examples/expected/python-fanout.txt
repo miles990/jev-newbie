@@ -1,0 +1,10 @@
+engineering            urgency=1.2  asks_question=0.82  needs_engineer=0.75  contains_code_or_sql=0.22
+    ← 幫我把這段 SQL 改成用 index，現在跑 40 秒。
+support                urgency=0.0  expresses_thanks=0.64  needs_engineer=0.13  mentions_repeat=0.08
+    ← 謝謝，昨天的修正很有幫助！
+P1 incident            urgency=2.0  reports_outage=0.98  needs_engineer=0.56  mentions_repeat=0.11
+    ← 系統又掛了！！客戶在等，快點！！！
+support                urgency=0.3  asks_question=0.98  sales_opportunity=0.53  needs_engineer=0.28
+    ← 請問你們有支援 SSO 嗎？
+escalate: churn risk   urgency=1.3  requests_refund=0.99  mentions_repeat=0.95  asks_question=0.08
+    ← 我要取消訂閱並全額退款，這已經是第三次寄信了。

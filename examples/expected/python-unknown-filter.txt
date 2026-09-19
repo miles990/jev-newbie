@@ -1,0 +1,8 @@
+read_many_files                  reading                                          conf=1.00
+google_web_search                searching                                        conf=1.00
+mcp__blender__execute_code       command                                          conf=1.00  ⚠ risky
+str_replace_based_edit_tool      editing                                          conf=1.00  ⚠ risky
+frobnicate_widget                UNKNOWN → send to a human to name a new category conf=0.91
+deploy_to_production             command                                          conf=0.88  ⚠ risky
+sequential_thinking              UNKNOWN → send to a human to name a new category conf=1.00
+banana                           NOT A TOOL → ignore                              conf=0.99

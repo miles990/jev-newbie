@@ -1,0 +1,21 @@
+{
+ "urgent": {
+  "type": "noul",
+  "noul": 0.98
+ },
+ "department": {
+  "type": "choice",
+  "choice": "billing",
+  "confidence": 1.0
+ },
+ "frustration": {
+  "type": "score",
+  "score": 1.39,
+  "confidence": 0.41,
+  "legend": {
+   "0": "calm",
+   "1": "annoyed but civil",
+   "2": "very angry"
+  }
+ }
+}

@@ -1,0 +1,10 @@
+✓  98%  系統又掛了！！客戶在等，快點！！！
+✓  98%  Your docs link on the pricing page is broken.
+✓  66%  Invoice #4471 was charged twice, please refund one.
+   19%  幫我把這段 SQL 改成用 index，現在跑 40 秒。
+   19%  我要取消訂閱並全額退款，這已經是第三次寄信了。
+    5%  謝謝，昨天的修正很有幫助！
+    3%  請問你們有支援 SSO 嗎？
+    3%  Hi, can you add dark mode to the dashboard?
+
+3/8 kept at p ≥ 0.5. Log: runs/verify-log.jsonl

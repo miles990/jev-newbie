@@ -1,0 +1,11 @@
+node_modules/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+runs/
+*.jsonl
+.DS_Store
+!examples/**/*.jsonl
+!examples/expected/
