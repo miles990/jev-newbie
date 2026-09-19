@@ -41,6 +41,7 @@ jev view                                   # 打開一頁報告，看剛剛每�
 | `skills/jev-workflow` | 教 Claude Code／Codex 照這個 repo 的工作流做事的 agent skill |
 | `tutorial/` | 八課循序教程，附真實錄下的輸出，中英雙語 |
 | `docs/en` `docs/zh-TW` | 短指南：Jev 是什麼、怎麼找用法、可靠性、工具、可觀測性 |
+| `docs/zh-TW/09-converging-loops.md` | LLM 提案、Jev 量測、程式碼決定：三種會收斂的迴圈，附 58% → 0% 的真實執行 |
 | `docs/zh-TW/08-jev-with-an-llm.md` | Jev 與 LLM 之間接縫的四個位置，附可跑的 Jev → LLM → Jev 流程 |
 | `docs/zh-TW/07-limits-and-caveats.md` | 硬限制、軟限制、校準、語言、服務與設計上的但書，附來源 |
 | `docs/zh-TW/06-feature-coverage.md` | Jev 每一項 API 功能對應的 CLI 參數與範例，以及錄下的輸出如何重現 |
