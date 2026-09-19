@@ -24,6 +24,7 @@
 | LLM → Jev 收斂迴圈 | 提案 → 整批重打分 → 單調接受 → 停止 | CLI 無 | `examples/js/llm-then-jev-loop.mjs` |
 | 機率 → Monte Carlo | 政策模擬、期望成本、bootstrap 信賴區間 | CLI 無 | `examples/js/monte-carlo.mjs` |
 | 問題 → 特徵矩陣 | 校準特徵的 CSV 加與標籤的相關性 | `run` 印出表格 | `examples/js/features.mjs` |
+| 延遲基準 | 循序對平行、1 題對 13 題、重複 | `doctor` 顯示一次 | `examples/js/latency.mjs` |
 | SDK | Python 與 JavaScript 客戶端 | CLI 不用（直接 fetch） | `examples/python`、`examples/js` |
 | 給 agent 的 MCP 工具 | typesafe-mcp 的 `evaluate` | `scripts/setup.sh` | `docs/zh-TW/04-tools.md` |
 | Agent skill | 官方 `typesafe-ai` 與本 repo 的 `jev-workflow` | `scripts/setup.sh` | `skills/jev-workflow/SKILL.md` |
