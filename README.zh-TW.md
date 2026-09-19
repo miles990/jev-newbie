@@ -41,6 +41,7 @@ jev view                                   # 打開一頁報告，看剛剛每�
 | `skills/jev-workflow` | 教 Claude Code／Codex 照這個 repo 的工作流做事的 agent skill |
 | `tutorial/` | 八課循序教程，附真實錄下的輸出，中英雙語 |
 | `docs/en` `docs/zh-TW` | 短指南：Jev 是什麼、怎麼找用法、可靠性、工具、可觀測性 |
+| `docs/zh-TW/13-engineering-map.md` | 把 Jev 當校準的語意預言機，對照每個工程學科：接在哪、永遠不取代什麼 |
 | `docs/zh-TW/10-monte-carlo.md` `11-multimodal.md` `12-features.md` | Jev 搭配 Monte Carlo（政策模擬、期望成本、bootstrap）、多模態周邊、當特徵抽取器搭配 Fourier 等訊號方法 |
 | `docs/zh-TW/09-converging-loops.md` | LLM 提案、Jev 量測、程式碼決定：三種會收斂的迴圈，附 58% → 0% 的真實執行 |
 | `docs/zh-TW/08-jev-with-an-llm.md` | Jev 與 LLM 之間接縫的四個位置，附可跑的 Jev → LLM → Jev 流程 |
