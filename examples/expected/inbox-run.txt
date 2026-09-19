@@ -1,0 +1,11 @@
+item                                           kind    urgency needs_repl asks_to_cl
+你的信用卡帳單這期 12,480 元，繳款截止 25 日，逾期會有循環利息。         bill       0.92       0.22       0.02
+您的包裹因地址不完整無法投遞，請點擊連結補填資料：http://parcel         scam       0.97       0.47       0.97
+週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～               invite       1.12       0.96       0.01
+這個月房租記得在 5 號前匯，謝謝。                             bill       0.95       0.28       0.02
+【限時】全館服飾 3 折起，只到今晚 12 點！                         ad       1.97       0.12       0.04
+Your account was used to sign in on a          scam       1.89       0.15       0.94
+Hi, this is the clinic. Your appointme   appointmen       1.85       0.93       0.02
+媽：你上次說的那個電鍋是哪個牌子？我想買一個給阿姨。                 personal       0.94       0.94       0.01
+
+8 items × 4 questions. Log: runs/verify-log.jsonl  →  jev view

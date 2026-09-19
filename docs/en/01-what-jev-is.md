@@ -23,6 +23,26 @@ Classification, routing, ranking, relevance, verification, gating, extraction by
 - **Arithmetic, counting, date comparison.** Compute in code, then pass the result or a named bucket.
 - **Read your mind.** It answers the question you wrote, literally. If a wrong answer makes you say "what I meant was...", that sentence belongs in the instructions.
 
+## Jev, an LLM, and an AI agent: what is the difference?
+
+| | LLM (GPT, Claude, Gemini…) | AI agent (Claude Code, Codex, a chatbot) | Jev |
+| --- | --- | --- | --- |
+| Produces | text, code, plans | actions: runs tools, edits files, sends messages | a typed judgment with a probability |
+| Best at | explaining, writing, reasoning step by step, naming new things | doing multi-step work with a person in the loop | deciding one narrow thing fast and consistently |
+| Speed / cost per call | seconds, cents | many LLM calls per task | ~300 ms, ~$0.00002 |
+| Can it be wrong in shape? | yes: prose to parse, JSON that does not validate | yes: takes an action you did not want | no: the answer is always one of your options, but it can still be *wrong* |
+| Tells you how sure it is | rarely, and not calibrated | no | always, and calibrated |
+| Sees images, generates text | yes / yes | yes / yes | no / no |
+
+**Not a replacement. A division of labor.** An LLM writes; an agent acts; Jev judges. The reliable shape people are converging on:
+
+- **Jev in front of the LLM**: decide whether the request needs the expensive model at all, which model, and whether the input is safe (routing, guardrails). Most turns never reach the LLM.
+- **Jev inside the agent loop**: before a tool runs, "is this destructive?"; after it returns, "is this output relevant?"; before the agent stops, "is it actually done?". Cheap enough to run on every step.
+- **Jev after the LLM**: verify the LLM's claim, citation or label against the evidence, and only escalate the failures to a person.
+- **LLM after Jev**: when Jev says `other` or low confidence, the LLM names the new category or writes the explanation Jev cannot.
+
+In this repo, Lessons 1 to 8 are Jev alone; Lesson 9 is Jev handing work to an agent and an agent using Jev as its judge.
+
 ## Numbers to keep in mind (September 2026)
 
 - Price: $0.042 per million input tokens, output free. A typical call is a few hundred tokens.

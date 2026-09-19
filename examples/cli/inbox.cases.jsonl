@@ -1,0 +1,8 @@
+{"state": {"item": "你的信用卡帳單這期 12,480 元，繳款截止 25 日，逾期會有循環利息。"}, "expect": {"kind": "bill", "needs_reply": false, "asks_to_click_or_login": false}}
+{"state": {"item": "您的包裹因地址不完整無法投遞，請點擊連結補填資料：http://parcel-redelivery.co/x9"}, "expect": {"kind": "scam", "asks_to_click_or_login": true}}
+{"state": {"item": "週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～"}, "expect": {"kind": "invite", "needs_reply": true}}
+{"state": {"item": "這個月房租記得在 5 號前匯，謝謝。"}, "expect": {"kind": "bill", "asks_to_click_or_login": false}}
+{"state": {"item": "【限時】全館服飾 3 折起，只到今晚 12 點！"}, "expect": {"kind": "ad", "needs_reply": false}}
+{"state": {"item": "Your account was used to sign in on a new device. If this wasn't you, secure your account now: account-verify-center.net"}, "expect": {"kind": "scam", "asks_to_click_or_login": true}}
+{"state": {"item": "Hi, this is the clinic. Your appointment is tomorrow at 10:30. Reply Y to confirm or call to reschedule."}, "expect": {"kind": "appointment", "needs_reply": true, "urgency": 2}}
+{"state": {"item": "媽：你上次說的那個電鍋是哪個牌子？我想買一個給阿姨。"}, "expect": {"kind": "personal", "needs_reply": true, "asks_to_click_or_login": false}}

@@ -1,4 +1,4 @@
-intent      fix (confidence 0.99) { fix: 1, information: 0, other: 0, refund: 0 }
-urgent      0.98
-frustration 1.37
-action      route to fix
+kind        scam (confidence 1.00) { appointment: 0, bill: 0, other: 0, personal: 0, scam: 1 }
+needsReply  0.50
+urgency     0.40
+action      move to junk and block the sender

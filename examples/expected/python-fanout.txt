@@ -1,15 +1,15 @@
-engineering            urgency=1.3
-    ← 幫我把這段 SQL 改成用 index，現在跑 40 秒。
-    asks_question=0.77  reports_outage=0.15  requests_refund=0.01  expresses_thanks=0.02  needs_engineer=0.75  mentions_repeat=0.03  contains_code_or_sql=0.21  sales_opportunity=0.03
-support                urgency=0.0
-    ← 謝謝，昨天的修正很有幫助！
-    asks_question=0.02  reports_outage=0.02  requests_refund=0.01  expresses_thanks=0.67  needs_engineer=0.13  mentions_repeat=0.08  contains_code_or_sql=0.02  sales_opportunity=0.06
-P1 incident            urgency=2.0
-    ← 系統又掛了！！客戶在等，快點！！！
-    asks_question=0.06  reports_outage=0.98  requests_refund=0.03  expresses_thanks=0.01  needs_engineer=0.56  mentions_repeat=0.10  contains_code_or_sql=0.04  sales_opportunity=0.02
-support                urgency=0.3
-    ← 請問你們有支援 SSO 嗎？
-    asks_question=0.98  reports_outage=0.02  requests_refund=0.01  expresses_thanks=0.01  needs_engineer=0.25  mentions_repeat=0.03  contains_code_or_sql=0.17  sales_opportunity=0.54
-escalate: churn risk   urgency=1.2
-    ← 我要取消訂閱並全額退款，這已經是第三次寄信了。
-    asks_question=0.08  reports_outage=0.04  requests_refund=0.99  expresses_thanks=0.01  needs_engineer=0.08  mentions_repeat=0.94  contains_code_or_sql=0.02  sales_opportunity=0.02
+pay: has a deadline        urgency=0.7
+    ← 你的信用卡帳單這期 12,480 元，繳款截止 25 日，逾期會有循環利息。
+    needs_reply=0.19  asks_money=0.66  asks_click_or_login=0.02  from_known_person=0.16  time_bound=0.98  is_marketing=0.04  claims_institution=0.36  threatens_consequence=0.95
+reply tonight              urgency=1.1
+    ← 週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～
+    needs_reply=0.96  asks_money=0.02  asks_click_or_login=0.01  from_known_person=0.88  time_bound=0.53  is_marketing=0.02  claims_institution=0.01  threatens_consequence=0.02
+today                      urgency=2.0
+    ← Your account was used to sign in on a new device. If this wa
+    needs_reply=0.14  asks_money=0.02  asks_click_or_login=0.95  from_known_person=0.06  time_bound=0.18  is_marketing=0.05  claims_institution=0.15  threatens_consequence=0.61
+promotions                 urgency=2.0
+    ← 【限時】全館服飾 3 折起，只到今晚 12 點！
+    needs_reply=0.13  asks_money=0.06  asks_click_or_login=0.03  from_known_person=0.06  time_bound=0.98  is_marketing=0.99  claims_institution=0.25  threatens_consequence=0.07
+today                      urgency=1.8
+    ← Hi, this is the clinic. Your appointment is tomorrow at 10:3
+    needs_reply=0.94  asks_money=0.01  asks_click_or_login=0.02  from_known_person=0.11  time_bound=0.59  is_marketing=0.02  claims_institution=0.98  threatens_consequence=0.07

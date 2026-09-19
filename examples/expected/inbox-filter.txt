@@ -1,0 +1,10 @@
+✓  96%  週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～
+✓  94%  媽：你上次說的那個電鍋是哪個牌子？我想買一個給阿姨。
+✓  93%  Hi, this is the clinic. Your appointment is tomorrow at 10:30. Reply Y to confirm or call to reschedule.
+   45%  您的包裹因地址不完整無法投遞，請點擊連結補填資料：http://parcel-redelivery.co/x9
+   27%  這個月房租記得在 5 號前匯，謝謝。
+   21%  你的信用卡帳單這期 12,480 元，繳款截止 25 日，逾期會有循環利息。
+   13%  【限時】全館服飾 3 折起，只到今晚 12 點！
+   13%  Your account was used to sign in on a new device. If this wasn't you, secure your account now: account-verify-center.net
+
+3/8 kept at p ≥ 0.5. Log: runs/verify-log.jsonl

@@ -1,8 +1,12 @@
-read_many_files                  reading                                          conf=1.00
-google_web_search                searching                                        conf=1.00
-mcp__blender__execute_code       command                                          conf=1.00  ⚠ risky
-str_replace_based_edit_tool      editing                                          conf=1.00  ⚠ risky
-frobnicate_widget                UNKNOWN → send to a human to name a new category conf=0.90
-deploy_to_production             command                                          conf=0.85  ⚠ risky
-sequential_thinking              UNKNOWN → send to a human to name a new category conf=1.00
-banana                           NOT A TOOL → ignore                              conf=0.99
+bill                                         conf=0.98
+    ← 這個月房租記得在 5 號前匯，謝謝。
+scam                                         conf=1.00
+    ← Your account was used to sign in on a new device. If this wa
+appointment                                  conf=0.86  ⚑ claims to be official
+    ← 法院通知：您有一件民事調解案件，請於 10/3 上午九時到場。
+scam                                         conf=1.00
+    ← 恭喜！您被選中領取 0.5 BTC 空投，請連接錢包領取。
+NEW KIND → show me, I may need a new category conf=0.89  ⚑ claims to be official
+    ← 家長您好，下週三校外教學請攜帶水壺與雨具，回條請於週一交回。
+NOT A MESSAGE → ignore                       conf=0.85
+    ← \x00\x1f\x8b\x08\x00binary-blob-000

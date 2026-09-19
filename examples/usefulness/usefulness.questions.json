@@ -1,0 +1,18 @@
+{
+  "questions": {
+    "relevance": {
+      "type": "score",
+      "instructions": "How directly does `item` address the person's `goal`?",
+      "criteria": ["unrelated to the goal", "touches the goal in passing", "addresses the goal directly", "is specifically about achieving this goal"]
+    },
+    "actionable": { "type": "noul", "instructions": "Does `item` give something concrete the person could actually do this week, rather than a vague idea or a product to buy?" },
+    "credible": { "type": "noul", "instructions": "Is the advice or claim in `item` supported by evidence or expertise, rather than anecdote, marketing or unsupported assertion?" },
+    "safe": { "type": "noul", "instructions": "Is following `item` free of meaningful health, financial or safety risk for a typical adult?" },
+    "cost": {
+      "type": "score",
+      "instructions": "How much money or effort does `item` require to try?",
+      "criteria": ["free and easy to try", "some effort or a small cost", "significant money or a hard habit change"]
+    },
+    "sales_pitch": { "type": "noul", "instructions": "Is `item` primarily trying to sell something?" }
+  }
+}

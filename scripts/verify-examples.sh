@@ -33,8 +33,23 @@ run cli-rate               node bin/jev.mjs rate "多急？" --levels 可以等�
 run cli-filter             node bin/jev.mjs filter examples/cli/support-messages.txt "Is the writer reporting something broken?" --min 0.5
 run cli-classify           node bin/jev.mjs classify examples/cli/support-messages.txt "What does the writer mainly want?" --options bug,billing,feature,question,thanks,other
 run cli-run                node bin/jev.mjs run examples/cli/support.questions.json examples/cli/support-messages.txt
+# tutorial: inbox lessons (region-neutral everyday messages)
+run inbox-classify         node bin/jev.mjs classify examples/cli/inbox-messages.txt "What kind of message is this?" --options "bill:a payment I owe,scam:phishing or fraud,invite:an invitation,appointment:a booking or delivery notice,ad:marketing,personal:someone I know asks me something,other"
+run inbox-filter           node bin/jev.mjs filter examples/cli/inbox-messages.txt "Does the sender expect me to reply?" --min 0.5
+run inbox-run              node bin/jev.mjs run examples/cli/inbox.questions.json examples/cli/inbox-messages.txt
+M="房東說明天早上八點到十點停水，要我今晚先把水存好。"
+run tut3-compound          node bin/jev.mjs ask "Is this message urgent and about money?" --text "$M"
+run tut3-split-action      node bin/jev.mjs ask "Does this message need action from me within a day?" --text "$M"
+run tut3-split-money       node bin/jev.mjs ask "Is this message about money, bills or payments?" --text "$M"
+O="scam:a scam or phishing attempt,legit:a genuine message I should act on,unsure:cannot tell from the message alone"
+R="這個月房租記得在 5 號前匯，謝謝。"
+run tut4-text-only         node bin/jev.mjs pick "What is this message?" --options "$O" --text "$R"
+run tut4-unknown-sender    node bin/jev.mjs pick "What is this message?" --options "$O" --json "{\"message\":\"$R\",\"sender\":\"unknown number, not in my contacts\",\"my_situation\":\"I have no pending orders and I own my apartment\"}"
+run tut4-landlord          node bin/jev.mjs pick "What is this message?" --options "$O" --json "{\"message\":\"$R\",\"sender\":\"saved contact: my landlord\",\"my_situation\":\"I rent and pay on the 5th every month\"}"
+run usefulness             node examples/js/usefulness.mjs
 echo
 echo "golden set (hard check):"
+node bin/jev.mjs check examples/cli/inbox.questions.json examples/cli/inbox.cases.jsonl --strict || fail=1
 node bin/jev.mjs check examples/cli/support.questions.json examples/cli/support.cases.jsonl --strict || fail=1
 node bin/jev.mjs view "$JEV_LOG" --no-open >/dev/null && echo "report: runs/report.html"
 [ "$mode" = "--record" ] && exit 0

@@ -1,29 +1,30 @@
 """投機式廣撒：不知道該問什麼，就一次問一整組，讓程式碼決定哪些答案有用。
+Speculative fan-out: when you do not know what to ask, ask a whole set at once and let code decide.
 Run: .venv/bin/python examples/python/fanout_profile.py
 
-一次呼叫的問題數幾乎不影響延遲，因為所有問題平行評估。對每個未知項目問同一組屬性，
+一次呼叫的問題數幾乎不影響延遲，因為所有問題平行評估。對每則訊息問同一組屬性，
 得到一個機率向量，之後排序、分群、設門檻都在程式碼裡做，不必再呼叫模型。
 """
 import os
 from typesafe_sdk import Noul, Score, TypeSafeClient
 
 messages = [
-    "幫我把這段 SQL 改成用 index，現在跑 40 秒。",
-    "謝謝，昨天的修正很有幫助！",
-    "系統又掛了！！客戶在等，快點！！！",
-    "請問你們有支援 SSO 嗎？",
-    "我要取消訂閱並全額退款，這已經是第三次寄信了。",
+    "你的信用卡帳單這期 12,480 元，繳款截止 25 日，逾期會有循環利息。",
+    "週六晚上小美生日，七點在市中心那家餐廳聚餐，來的話回我一聲～",
+    "Your account was used to sign in on a new device. If this wasn't you, secure your account now: account-verify-center.net",
+    "【限時】全館服飾 3 折起，只到今晚 12 點！",
+    "Hi, this is the clinic. Your appointment is tomorrow at 10:30. Reply Y to confirm or call to reschedule.",
 ]
-# 十個屬性，一次問完。哪些會用到，看下面的程式碼。
+# 八個屬性，一次問完。哪些會用到，看下面的政策。 Eight properties in one call; the policy below picks what matters.
 PROPS = {
-    "asks_question": "Does the writer ask a question that needs an answer?",
-    "reports_outage": "Does the writer report that something is down or broken right now?",
-    "requests_refund": "Does the writer ask for money back or cancellation?",
-    "expresses_thanks": "Is the message mainly gratitude with nothing to do?",
-    "needs_engineer": "Would answering properly require an engineer rather than support staff?",
-    "mentions_repeat": "Does the writer say they have contacted before without resolution?",
-    "contains_code_or_sql": "Does the message include code, SQL or a technical artifact?",
-    "sales_opportunity": "Is the writer evaluating whether to buy or expand usage?",
+    "needs_reply": "Does the sender expect me to reply?",
+    "asks_money": "Does the message ask me to pay or transfer money?",
+    "asks_click_or_login": "Does it ask me to click a link, log in, or enter account details?",
+    "from_known_person": "Does it read like it comes from someone who knows me personally?",
+    "time_bound": "Is there a specific deadline or time I must meet?",
+    "is_marketing": "Is this a promotion or advertisement?",
+    "claims_institution": "Does it claim to be from a bank, company, clinic or government body?",
+    "threatens_consequence": "Does it warn of a penalty, loss or account problem if I do nothing?",
 }
 
 with TypeSafeClient(model=os.environ.get("JEV_MODEL")) as client:
@@ -31,21 +32,21 @@ with TypeSafeClient(model=os.environ.get("JEV_MODEL")) as client:
         r = client.system_one(
             state={"message": m},
             questions={**{k: Noul(instructions=v) for k, v in PROPS.items()},
-                       "urgency": Score(instructions="How urgent is this message?", criteria=["can wait days", "should be handled today", "needs attention within the hour"])},
+                       "urgency": Score(instructions="How soon does this need my attention?", criteria=["can wait a week", "within a few days", "today"])},
         )
         p = {k: r.answers[k].noul for k in PROPS}
         urgency = r.answers["urgency"].score
-        # 一個簡單、可調的政策；權重與門檻都在這裡。
-        if p["reports_outage"] > 0.7 or urgency > 1.5:
-            queue = "P1 incident"
-        elif p["requests_refund"] > 0.6 and p["mentions_repeat"] > 0.5:
-            queue = "escalate: churn risk"
-        elif p["needs_engineer"] > 0.6 or p["contains_code_or_sql"] > 0.6:
-            queue = "engineering"
-        elif p["sales_opportunity"] > 0.6:
-            queue = "sales"
-        elif p["expresses_thanks"] > 0.7:
-            queue = "close, no action"
+        # 一個簡單、可調的政策；權重與門檻都在這裡。 A simple, editable policy; every threshold is here.
+        if p["asks_click_or_login"] > 0.6 and p["claims_institution"] > 0.5 and p["from_known_person"] < 0.4:
+            box = "junk: looks like phishing"
+        elif p["is_marketing"] > 0.7:
+            box = "promotions"
+        elif p["asks_money"] > 0.6 and p["time_bound"] > 0.6:
+            box = "pay: has a deadline"
+        elif p["needs_reply"] > 0.7 and p["from_known_person"] > 0.5:
+            box = "reply tonight"
+        elif urgency > 1.5:
+            box = "today"
         else:
-            queue = "support"
-        print(f"{queue:<22} urgency={urgency:.1f}\n    ← {m}\n    " + "  ".join(f"{k}={p[k]:.2f}" for k in PROPS))
+            box = "read later"
+        print(f"{box:<26} urgency={urgency:.1f}\n    ← {m[:60]}\n    " + "  ".join(f"{k}={p[k]:.2f}" for k in PROPS))

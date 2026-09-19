@@ -16,7 +16,7 @@ def shape(text):
     groups = {}
     for l in text.splitlines():
         l = re.sub(r"\d+ ms", "N ms", BAR.sub("BAR", l))
-        key = NUM.sub("#", l)
+        key = re.sub(r"\s+", " ", NUM.sub("#", l)).strip()  # padding changes with digit count (100% vs 99%)
         groups.setdefault(key, []).extend(float(m.group(0).rstrip("%")) / (100 if m.group(1) else 1) for m in NUM.finditer(l))
     return {k: sorted(v) for k, v in groups.items()}
 if len(sys.argv) < 3:

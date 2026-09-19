@@ -29,11 +29,11 @@ export async function ask(state, questions, decide, { label = "" } = {}) {
 // Demo: three messages through the same questions and the same policy.
 if (import.meta.url === `file://${process.argv[1]}`) {
   const Q = {
-    kind: choice("What does the user want the assistant to do?", { greet: "say hello", task: "do a concrete job", question: "answer a question", other: "none of these" }),
+    kind: choice("What kind of inbox message is this?", { invite: "invites me somewhere", ad: "marketing", personal: "someone I know asks me something", other: "none of these" }),
     needsReply: noul("Does the message expect a reply?"),
   };
   const policy = (a) => (a.kind.confidence < 0.5 ? "clarify" : a.kind.choice);
-  for (const m of ["嗨～", "幫我把測試跑一遍", "現在幾點？"]) {
+  for (const m of ["週六晚上小美生日，來的話回我一聲～", "【限時】全館服飾 3 折起！", "媽：你上次說的電鍋是哪個牌子？"]) {
     const r = await ask({ message: m }, Q, policy, { label: "demo" });
     console.log(`${m.padEnd(12)} → ${r.decision.padEnd(9)} conf=${r.answers.kind.confidence.toFixed(2)} needsReply=${r.answers.needsReply.noul.toFixed(2)}`);
   }

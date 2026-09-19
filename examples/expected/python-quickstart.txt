@@ -1,4 +1,4 @@
-intent      = fix  (confidence 0.98)  {'fix': 0.98, 'information': 0.0, 'other': 0.0, 'refund': 0.02}
-urgent      = 0.97
-frustration = 1.39 of 2
-action      = route to fix
+kind        = scam  (confidence 1.00)  {'appointment': 0.0, 'bill': 0.0, 'other': 0.0, 'personal': 0.0, 'scam': 1.0}
+needs_reply = 0.39
+urgency     = 0.45 of 2
+action      = move to junk and block the sender

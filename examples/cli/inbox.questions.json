@@ -1,0 +1,24 @@
+{
+  "questions": {
+    "kind": {
+      "type": "choice",
+      "instructions": "What kind of message is this, judging from the text alone?",
+      "criteria": {
+        "bill": "a bill, invoice, rent or payment that I owe and must pay",
+        "scam": "a scam or phishing attempt: asks me to click a link, log in, or pay through an unusual channel",
+        "invite": "an invitation to an event or gathering",
+        "appointment": "a confirmation or reminder of an appointment, delivery or booking",
+        "ad": "marketing or a promotion I did not ask for",
+        "personal": "a personal message from someone I know that expects a conversation",
+        "other": "none of the above clearly fits"
+      }
+    },
+    "urgency": {
+      "type": "score",
+      "instructions": "How soon does this message need my attention?",
+      "criteria": ["no action needed or can wait a week", "should be handled within a few days", "must be handled today"]
+    },
+    "needs_reply": { "type": "noul", "instructions": "Does the sender expect me to reply?" },
+    "asks_to_click_or_login": { "type": "noul", "instructions": "Does the message ask me to click a link, log in, or enter account details?" }
+  }
+}

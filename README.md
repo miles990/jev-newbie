@@ -10,6 +10,10 @@ Jev is a *System One* model. You send it text or JSON **state** plus **typed que
 state (text or JSON) + questions (yes/no · pick one · rate) → probabilities → your code decides
 ```
 
+## Tutorial
+
+Eight ten-minute lessons, each with a runnable command and its real recorded output: [tutorial/README.md](tutorial/README.md). Start there if you have never used Jev.
+
 ## 60-second start
 
 ```sh
@@ -35,6 +39,7 @@ Every command appends one line to `runs/jev-log.jsonl`: what went in, what came 
 | `examples/cli` | A question set, an item list and a golden test set for `jev run` and `jev check` |
 | `scripts/setup.sh` `scripts/doctor.sh` | One-shot install and environment check |
 | `skills/jev-workflow` | An agent skill that teaches Claude Code / Codex the workflow in this repo |
+| `tutorial/` | Eight step-by-step lessons with real recorded outputs, in both languages |
 | `docs/en` `docs/zh-TW` | Short guides: what Jev is, how to find use cases, reliability, tools, observability |
 | `docs/en/06-feature-coverage.md` | Every Jev API feature mapped to the CLI flag and example that exercises it, plus how the recorded outputs are reproduced |
 | `docs/workspace-audit.md` | A real audit of ~60 projects: where Jev would replace fragile code, with file and line |

@@ -10,6 +10,10 @@ Jev 是 *System One* 模型。你送它文字或 JSON 的 **state** 加上 **型
 state（文字或 JSON）＋ 問題（是非 · 單選 · 程度）→ 機率 → 你的程式碼做決定
 ```
 
+## 教程
+
+八課、每課十分鐘，每課一個可跑的指令與真實錄下的輸出：[tutorial/README.md](tutorial/README.md)。沒用過 Jev 就從這裡開始。
+
 ## 60 秒上手
 
 ```sh
@@ -35,6 +39,7 @@ jev view                                   # 打開一頁報告，看剛剛每�
 | `examples/cli` | 給 `jev run` 與 `jev check` 用的問題集、項目清單與黃金測試集 |
 | `scripts/setup.sh` `scripts/doctor.sh` | 一鍵安裝與環境檢查 |
 | `skills/jev-workflow` | 教 Claude Code／Codex 照這個 repo 的工作流做事的 agent skill |
+| `tutorial/` | 八課循序教程，附真實錄下的輸出，中英雙語 |
 | `docs/en` `docs/zh-TW` | 短指南：Jev 是什麼、怎麼找用法、可靠性、工具、可觀測性 |
 | `docs/zh-TW/06-feature-coverage.md` | Jev 每一項 API 功能對應的 CLI 參數與範例，以及錄下的輸出如何重現 |
 | `docs/workspace-audit.md` | 對約六十個真實專案的稽核：哪裡能用 Jev 取代脆弱程式碼，附檔案與行號 |
