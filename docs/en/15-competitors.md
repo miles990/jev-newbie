@@ -42,6 +42,21 @@ Adapted from Arize's comparison (2026-09-18) and independent tests:
 | safety categories only | a guardrail model, or Jev with your own hazard questions | guardrail models are fixed taxonomies; Jev lets you write the hazards |
 | rules you can write down | a rule engine, with Jev filling the semantic facts | deterministic where possible |
 
+## Skills and agent tooling like `jev-workflow`
+
+Checked 2026-09-19. Five things overlap with this repo's `jev-workflow` skill; none does the same job.
+
+| Project | What it is | Overlap with jev-workflow | Difference |
+| --- | --- | --- | --- |
+| Official `typesafe-ai` skill | API contract, primitives, patterns, cookbooks | none; it is the prerequisite | knows *how to call* Jev; says nothing about golden sets, thresholds in one place, logs, or fail-open |
+| **Augustus** (24601) | a design skill: maps Choice/Score/Noul onto decision theory, MCDA, signal detection, fail-open vs fail-closed; "companion, not replacement" to the official skill | closest in spirit: both are about *where* and *whether* to place a judgment | Augustus is theory-first and cross-domain (business, life); jev-workflow is an operating procedure for a codebase (find the smell → questions file → `jev check` → policy → log). Use Augustus to decide, jev-workflow to ship |
+| **jev-judgment** (HyunjunJeon) | a runtime skill: the agent calls Jev at three moments (before asking the user a closed question, before a risky command, before stopping) | both change agent behavior | it makes the agent *use* Jev during its own work; jev-workflow makes the agent *build* Jev into the user's code. Complementary |
+| **jev-code** (devagrawal09) | a CLI toolkit the agent delegates to: find relevant files, check a diff against the task, triage failures and review comments | both bound the agent's judgment | it is four fixed workflows with their own questions; jev-workflow produces new questions for the user's own problem |
+| **jev-superpowers** (AkashPriyadarshii) | the "superpowers" development framework re-skinned with Jev gates: package vetting, completion gates | both add gates | it is a whole methodology; jev-workflow is one skill you add to whatever methodology you already run |
+| typesafe-mcp, jev-mcp, pi-typesafe-jev, SemDecide | tools that expose Jev to an agent or a shell | none; they are the plumbing jev-workflow tells the agent to use | no workflow, no discipline |
+
+What is only here: the six-step order (smell → questions file → golden set → single policy → safety defaults → report), the `jev check --strict` CI gate, the `jev view` log, and the bilingual tutorial that teaches the same order to a person. What is only elsewhere: Augustus's decision-theory framing (worth reading before designing a high-stakes gate) and jev-judgment's runtime hooks (worth installing so the agent itself guesses less). All three install side by side with `npx skills add`.
+
 ## Where Jev's position is weakest
 
 Three things could erode it quickly: LLM vendors exposing calibrated logprobs with constrained decoding at Haiku-class prices; open reranker or encoder models fine-tuned to return calibrated judgments; and rate limits or early-access constraints while competitors are generally available. Pin versions, keep your questions and golden sets in files, and the switch is a client change.

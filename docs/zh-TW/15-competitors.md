@@ -42,6 +42,21 @@
 | 只要安全類別 | guardrail 模型，或用 Jev 自己寫危害問題 | guardrail 模型是固定分類法；Jev 讓你自己寫危害 |
 | 寫得出來的規則 | 規則引擎，Jev 填語意事實 | 能決定性就決定性 |
 
+## 像 `jev-workflow` 這樣的 skill 與 agent 工具
+
+2026-09-19 檢視。五樣東西與本 repo 的 `jev-workflow` 有重疊；沒有一個做同一件事。
+
+| 專案 | 是什麼 | 與 jev-workflow 的重疊 | 差異 |
+| --- | --- | --- | --- |
+| 官方 `typesafe-ai` skill | API 契約、基本型別、模式、cookbook | 無；它是前提 | 知道*怎麼呼叫* Jev；對黃金測試集、門檻集中、log、失敗放行隻字未提 |
+| **Augustus**（24601） | 設計型 skill：把 Choice／Score／Noul 對應到決策理論、MCDA、訊號偵測、失敗放行對失敗封閉；自稱官方 skill 的「夥伴而非替代」 | 精神上最接近：都在談*該不該*與*放哪裡* | Augustus 理論優先、跨領域（商業、生活）；jev-workflow 是對一個程式碼庫的作業程序（找味道 → 問題檔 → `jev check` → 政策 → log）。用 Augustus 決定，用 jev-workflow 交付 |
+| **jev-judgment**（HyunjunJeon） | 執行期 skill：agent 在三個時刻呼叫 Jev（問使用者封閉問題前、跑危險指令前、停止前） | 都改變 agent 行為 | 它讓 agent 在自己工作時*使用* Jev；jev-workflow 讓 agent 把 Jev *建進*使用者的程式碼。互補 |
+| **jev-code**（devagrawal09） | agent 可委派的 CLI 工具組：找相關檔案、對照任務檢查 diff、分流測試失敗與審查意見 | 都把 agent 的判斷框起來 | 它是四個固定工作流與自己的問題；jev-workflow 替使用者自己的問題產生新問題 |
+| **jev-superpowers**（AkashPriyadarshii） | 「superpowers」開發框架換上 Jev 關卡：套件查核、完成關卡 | 都加關卡 | 它是一整套方法論；jev-workflow 是加到你現有方法論上的一個 skill |
+| typesafe-mcp、jev-mcp、pi-typesafe-jev、SemDecide | 把 Jev 暴露給 agent 或 shell 的工具 | 無；它們是 jev-workflow 叫 agent 去用的管線 | 沒有工作流、沒有紀律 |
+
+只有這裡有的：六步順序（味道 → 問題檔 → 黃金測試集 → 單一政策 → 安全預設 → 回報）、`jev check --strict` 的 CI 關卡、`jev view` 的 log、以及把同一套順序教給人的雙語教程。只有別處有的：Augustus 的決策理論框架（設計高風險關卡前值得讀）、jev-judgment 的執行期掛鉤（值得裝，讓 agent 自己少猜）。三者都能用 `npx skills add` 並排安裝。
+
 ## Jev 的位置最弱的地方
 
 三件事可能很快侵蝕它：LLM 廠商以 Haiku 級價格開放校準的 logprob 加受限解碼；開源 reranker 或編碼器微調成回傳校準判斷；以及競品普遍可用時 Jev 仍有速率上限或早期存取限制。釘住版本、把問題與黃金測試集放在檔案裡，換掉它就只是改客戶端。
