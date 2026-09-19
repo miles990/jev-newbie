@@ -22,6 +22,8 @@ Source of truth: <https://docs.typesafe.ai/api> and <https://docs.typesafe.ai/pr
 | Errors (401 / 422) | key and validation failures | reported with body excerpt | `doctor` |
 | Jev + LLM pipeline | gate → draft → verify → retry | not in CLI | `examples/js/jev-then-llm.mjs` (Anthropic SDK or `claude -p`) |
 | LLM → Jev converging loop | propose → re-score whole set → monotone accept → stop | not in CLI | `examples/js/llm-then-jev-loop.mjs` |
+| Probabilities → Monte Carlo | policy simulation, expected cost, bootstrap CI | not in CLI | `examples/js/monte-carlo.mjs` |
+| Questions → feature matrix | CSV of calibrated features + correlation with a label | `run` prints the table | `examples/js/features.mjs` |
 | SDKs | Python and JavaScript clients | not used by the CLI (raw fetch) | `examples/python`, `examples/js` |
 | MCP tool for agents | `evaluate` via typesafe-mcp | `scripts/setup.sh` | `docs/en/04-tools.md` |
 | Agent skill | official `typesafe-ai` + this repo's `jev-workflow` | `scripts/setup.sh` | `skills/jev-workflow/SKILL.md` |

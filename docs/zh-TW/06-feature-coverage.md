@@ -22,6 +22,8 @@
 | 錯誤（401／422） | key 與驗證失敗 | 回報並附錯誤內容片段 | `doctor` |
 | Jev＋LLM 流程 | 關卡 → 擬稿 → 驗證 → 重試 | CLI 無 | `examples/js/jev-then-llm.mjs`（Anthropic SDK 或 `claude -p`） |
 | LLM → Jev 收斂迴圈 | 提案 → 整批重打分 → 單調接受 → 停止 | CLI 無 | `examples/js/llm-then-jev-loop.mjs` |
+| 機率 → Monte Carlo | 政策模擬、期望成本、bootstrap 信賴區間 | CLI 無 | `examples/js/monte-carlo.mjs` |
+| 問題 → 特徵矩陣 | 校準特徵的 CSV 加與標籤的相關性 | `run` 印出表格 | `examples/js/features.mjs` |
 | SDK | Python 與 JavaScript 客戶端 | CLI 不用（直接 fetch） | `examples/python`、`examples/js` |
 | 給 agent 的 MCP 工具 | typesafe-mcp 的 `evaluate` | `scripts/setup.sh` | `docs/zh-TW/04-tools.md` |
 | Agent skill | 官方 `typesafe-ai` 與本 repo 的 `jev-workflow` | `scripts/setup.sh` | `skills/jev-workflow/SKILL.md` |

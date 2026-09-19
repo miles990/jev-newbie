@@ -41,6 +41,7 @@ Every command appends one line to `runs/jev-log.jsonl`: what went in, what came 
 | `skills/jev-workflow` | An agent skill that teaches Claude Code / Codex the workflow in this repo |
 | `tutorial/` | Eight step-by-step lessons with real recorded outputs, in both languages |
 | `docs/en` `docs/zh-TW` | Short guides: what Jev is, how to find use cases, reliability, tools, observability |
+| `docs/en/10-monte-carlo.md` `11-multimodal.md` `12-features.md` | Jev with Monte Carlo (policy simulation, expected cost, bootstrap), around images/audio, and as a feature extractor with Fourier and other signal methods |
 | `docs/en/09-converging-loops.md` | LLM proposes, Jev measures, code decides: three loops that converge, with a real 58% → 0% run |
 | `docs/en/08-jev-with-an-llm.md` | Four positions for the seam between Jev and an LLM, with a runnable Jev → LLM → Jev pipeline |
 | `docs/en/07-limits-and-caveats.md` | Hard limits, soft limits, calibration, language, service and design caveats, with sources |
